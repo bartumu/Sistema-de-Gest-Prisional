@@ -6,10 +6,13 @@ package CONTROLLER;
 
 import MODEL.Bloco;
 import MODEL.Cela;
+import MODEL.CelaPK;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,20 +23,23 @@ public class CelaController extends CRUDController {
     public CelaController() {
         super("cela", "idBloco");
         super.setInserirQuery(String.format("INSERT INTO %s (descricao, idBloco, tipo) values (?,?,?)", this.tabela));
-        super.setAtualizarQuery(String.format("UPDATE cela SET descricao = ?, tipo = ? WHERE idBloco = ?", this.tabela));
+        super.setAtualizarQuery(String.format("UPDATE %s SET descricao = ?, tipo = ? WHERE idBloco = ?", this.tabela));
+        super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
+        super.setSelecionarQuery(String.format("SELECT c.*, b.descricao as Bloco FROM %s as c join bloco as b on (b.idBloco = c.idBloco)", this.tabela));
+//        super.setSelecionarQuery(String.format("SELECT b.descricao FROM %s as c join bloco on (b.idBloco = c.idBloco)", this.tabela));
     }
 
     @Override
     protected void setValoresQuery(PreparedStatement stmt, Object object, boolean update) throws SQLException {
         Cela cela = (Cela) object;
         if (update == true) {
-            stmt.setString(1, cela.getDescricao());
-            stmt.setInt(2, cela.getBloco().getIdBloco());
-            stmt.setString(3, cela.getTipoCela());
+            stmt.setString(1, cela.getCelaPK().getDescricao());
+            stmt.setInt(2, cela.getCelaPK().getIdBloco());
+            stmt.setString(3, cela.getTipo());
         } else {
-            stmt.setString(1, cela.getDescricao());
-            stmt.setString(2, cela.getTipoCela());
-            stmt.setInt(3, cela.getBloco().getIdBloco());
+            stmt.setString(1, cela.getCelaPK().getDescricao());
+            stmt.setInt(2, cela.getCelaPK().getIdBloco());
+            stmt.setString(3, cela.getTipo());
         }
     }
 
@@ -43,24 +49,27 @@ public class CelaController extends CRUDController {
 
         if (all = true) {
             while (rs.next()) {
-                Bloco b = new Bloco();
                 Cela c = new Cela();
-                c.setDescricao(rs.getString("descricao"));
-                b.setIdBloco(rs.getInt("idBloco"));
+                var b = new Bloco();
+                var celaPK = new CelaPK();
+                celaPK.setDescricao(rs.getString("descricao"));
+                celaPK.setIdBloco(rs.getInt("idBloco"));
+                c.setCelaPK(celaPK);
+                b.setDescricao(rs.getString("Bloco"));
                 c.setBloco(b);
-                c.setTipoCela(rs.getString("tipo"));
+                c.setTipo(rs.getString("tipo"));
                 cLista.add(c);
             }
             System.out.println("");
             return cLista;
         } else {
+            var celaPK = new CelaPK();
             rs.next();
-            Bloco b = new Bloco();
             Cela c = new Cela();
-            c.setDescricao(rs.getString("descricao"));
-            b.setIdBloco(rs.getInt("idBloco"));
-            c.setBloco(b);
-            c.setTipoCela(rs.getString("tipo"));
+            celaPK.setDescricao(rs.getString("descricao"));
+            celaPK.setIdBloco(rs.getInt("idBloco"));
+            c.setCelaPK(celaPK);
+            c.setTipo(rs.getString("tipo"));
 
             cLista.add(c);
             return cLista;
@@ -68,15 +77,17 @@ public class CelaController extends CRUDController {
     }
 
     @Override
-    protected Object convertObjecto(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void Inserir(Object object) {
         Cela cela = (Cela) object;
         super.Inserir(cela); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+
+    @Override
+    public ArrayList<Cela> Find(String id) {
+        return super.Find(id); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
+    
 
     @Override
     public void Actualizar(Object object) {
@@ -93,10 +104,70 @@ public class CelaController extends CRUDController {
     public ArrayList<Cela> findAll() {
         return (ArrayList<Cela>) super.getObjectos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+    
+    
 
     @Override
     public ArrayList<Cela> Find(int id) {
         return super.Find(id); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
+   
+
+    @Override
+    public ArrayList<Cela> find(Object object) {
+       Cela cela = (Cela) object;
+        return (ArrayList<Cela>) super.getObjectosPersonalizados(cela); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
+    
+
+    @Override
+    protected void setValoresQueryPersonalizado(PreparedStatement stmt, Object object) throws SQLException {
+        Cela cela = (Cela) object;
+        
+    }
+
+    @Override
+    protected ArrayList criarObjectoPersonalizado(ResultSet rs) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public ArrayList<CelaPK> AcharCelasNormais(CelaPK celaPK) {
+        super.AbrirConexao();
+        var sql = String.format("SELECT descricao FROM cela where tipo = 'Normal' or tipo = 'normal'");
+        ArrayList<CelaPK> cLista = new ArrayList<>();
+            try (Statement stmt = this.conex.createStatement()) {
+            stmt.execute(sql);
+            try (ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {                    
+                celaPK.setDescricao(rs.getString("descricao"));
+                cLista.add(celaPK);                    
+                }
+                return cLista;
+            }
+        } catch (SQLException ex) {
+            super.FecharConexao();
+            JOptionPane.showMessageDialog(null, ex);
+            return null;
+        }
+    }
+    
+    public int findIdBloco(CelaPK celaPK) {
+        this.AbrirConexao();
+        try (PreparedStatement stmt = this.conex.prepareStatement("SELECT idBloco FROM cela WHERE descricao = ?")) {
+            stmt.setString(1, celaPK.getDescricao());
+         
+            try (ResultSet rs = stmt.executeQuery()) {
+                rs.next();
+                return rs.getInt("idBloco");
+            }
+            
+        } catch (SQLException ex) {
+            this.FecharConexao();
+            ex.printStackTrace();
+            return 0;
+        }
     }
 
 }

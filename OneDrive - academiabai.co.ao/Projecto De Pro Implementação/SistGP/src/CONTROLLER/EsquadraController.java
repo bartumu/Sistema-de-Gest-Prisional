@@ -20,6 +20,8 @@ public class EsquadraController extends CRUDController {
         super("esquadra", "idEsquadra");
         super.setInserirQuery(String.format("INSERT INTO %s (descricao, local) VALUES (?,?)", this.tabela));
         super.setAtualizarQuery(String.format("UPDATE esquadra SET descricao = ?, local = ? WHERE idEsquadra = ?", this.tabela, this.idTabela));
+        super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
+        super.setSelecionarQuery(String.format("SELECT * FROM %s", this.tabela));
     }
 
     @Override
@@ -96,9 +98,32 @@ public class EsquadraController extends CRUDController {
 //    }
 //    
 //    
+    
     @Override
-    protected Object convertObjecto(Object object) {
+    protected void setValoresQueryPersonalizado(PreparedStatement stmt, Object object) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    protected ArrayList criarObjectoPersonalizado(ResultSet rs) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public int findIdEsquadra(Esquadra esq) {
+        this.AbrirConexao();
+        try (PreparedStatement stmt = this.conex.prepareStatement("SELECT idEsquadra FROM esquadra WHERE  descricao = ?")) {
+            stmt.setString(1, esq.getDescricao());
+         
+            try (ResultSet rs = stmt.executeQuery()) {
+                rs.next();
+                return rs.getInt("idEsquadra");
+            }
+            
+        } catch (SQLException ex) {
+            this.FecharConexao();
+            ex.printStackTrace();
+            return 0;
+        }
     }
 
 }

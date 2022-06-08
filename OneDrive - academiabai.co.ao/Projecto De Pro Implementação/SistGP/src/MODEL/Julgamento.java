@@ -4,49 +4,84 @@
  */
 package MODEL;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
 /**
  *
  * @author Melhor De Mim
  */
-public class Julgamento {
-    private int idJulgamento;
-    private String tribunal;
-    private String data;
+@Entity
+@NamedQueries({
+    @NamedQuery(name = "Julgamento.findAll", query = "SELECT j FROM Julgamento j"),
+    @NamedQuery(name = "Julgamento.findByIdJulgamento", query = "SELECT j FROM Julgamento j WHERE j.julgamentoPK.idJulgamento = :idJulgamento"),
+    @NamedQuery(name = "Julgamento.findByTribunal", query = "SELECT j FROM Julgamento j WHERE j.julgamentoPK.tribunal = :tribunal"),
+    @NamedQuery(name = "Julgamento.findByData", query = "SELECT j FROM Julgamento j WHERE j.julgamentoPK.data = :data")})
+public class Julgamento implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected JulgamentoPK julgamentoPK;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "julgamento")
+    private Collection<EJulgado> eJulgadoCollection;
 
     public Julgamento() {
     }
 
+    public Julgamento(JulgamentoPK julgamentoPK) {
+        this.julgamentoPK = julgamentoPK;
+    }
+
     public Julgamento(int idJulgamento, String tribunal, String data) {
-        this.idJulgamento = idJulgamento;
-        this.tribunal = tribunal;
-        this.data = data;
+        this.julgamentoPK = new JulgamentoPK(idJulgamento, tribunal, data);
     }
 
-    public int getIdJulgamento() {
-        return idJulgamento;
+    public JulgamentoPK getJulgamentoPK() {
+        return julgamentoPK;
     }
 
-    public void setIdJulgamento(int idJulgamento) {
-        this.idJulgamento = idJulgamento;
+    public void setJulgamentoPK(JulgamentoPK julgamentoPK) {
+        this.julgamentoPK = julgamentoPK;
     }
 
-    public String getTribunal() {
-        return tribunal;
+    public Collection<EJulgado> getEJulgadoCollection() {
+        return eJulgadoCollection;
     }
 
-    public void setTribunal(String tribunal) {
-        this.tribunal = tribunal;
+    public void setEJulgadoCollection(Collection<EJulgado> eJulgadoCollection) {
+        this.eJulgadoCollection = eJulgadoCollection;
     }
 
-    public String getData() {
-        return data;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (julgamentoPK != null ? julgamentoPK.hashCode() : 0);
+        return hash;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Julgamento)) {
+            return false;
+        }
+        Julgamento other = (Julgamento) object;
+        if ((this.julgamentoPK == null && other.julgamentoPK != null) || (this.julgamentoPK != null && !this.julgamentoPK.equals(other.julgamentoPK))) {
+            return false;
+        }
+        return true;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "MODEL.Julgamento[ julgamentoPK=" + julgamentoPK + " ]";
+    }
     
 }

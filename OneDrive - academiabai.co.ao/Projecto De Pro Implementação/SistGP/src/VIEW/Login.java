@@ -4,8 +4,16 @@
  */
 package VIEW;
 
-import ENTITY.Bloco;
+import CONTROLLER.UsuarioController;
+import MODEL.Bloco;
+import MODEL.Funcao;
+import MODEL.Funcionario;
+import MODEL.Usuario;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.time.LocalDateTime;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,13 +24,21 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    Color defaultColor,ClickedColor,white; 
+    Usuario user = new Usuario();
+    Funcionario f = new Funcionario();
+    Funcao func = new Funcao();
+    UsuarioController uController = new UsuarioController();
+    Color defaultColor, ClickedColor, white;
+    CardLayout cardLayout;
+
     public Login() {
         initComponents();
-        
-        defaultColor = new Color(204,255,204);
-        ClickedColor =new Color(60,179,113);
-        white = new Color(255,255,255);
+
+        cardLayout = (CardLayout) (pnlCards.getLayout());
+        cardLayout.show(pnlCards, "SenhaPanel");
+        defaultColor = new Color(204, 255, 204);
+        ClickedColor = new Color(60, 179, 113);
+        white = new Color(255, 255, 255);
     }
 
     /**
@@ -35,6 +51,11 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         LoginConf = new javax.swing.JFrame();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        pnlCards = new javax.swing.JPanel();
         NovaSenhaPanel = new javax.swing.JPanel();
         txtNovaSenha = new javax.swing.JPasswordField();
         txtUsuarioNovaSenha = new javax.swing.JTextField();
@@ -43,119 +64,35 @@ public class Login extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
-        btnEntrar1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
+        SenhaPanel = new javax.swing.JPanel();
         txtUsuario = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        btnEntrar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         btnFechar = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
 
         LoginConf.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         LoginConf.setUndecorated(true);
-
-        NovaSenhaPanel.setBackground(new java.awt.Color(204, 255, 204));
-        NovaSenhaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        txtNovaSenha.setBackground(new java.awt.Color(204, 255, 204));
-        txtNovaSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtNovaSenha.setText("jPasswordField1");
-        txtNovaSenha.setBorder(null);
-        NovaSenhaPanel.add(txtNovaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 160, -1));
-
-        txtUsuarioNovaSenha.setBackground(new java.awt.Color(204, 255, 204));
-        txtUsuarioNovaSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtUsuarioNovaSenha.setText("Usuario");
-        txtUsuarioNovaSenha.setBorder(null);
-        txtUsuarioNovaSenha.setEnabled(false);
-        NovaSenhaPanel.add(txtUsuarioNovaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 160, -1));
-
-        txtConfNovaSenha.setBackground(new java.awt.Color(204, 255, 204));
-        txtConfNovaSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtConfNovaSenha.setText("jPasswordField1");
-        txtConfNovaSenha.setBorder(null);
-        NovaSenhaPanel.add(txtConfNovaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 160, -1));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
-        jLabel7.setText("Criar Senha");
-        NovaSenhaPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 260, 60));
-
-        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
-        NovaSenhaPanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 170, 10));
-
-        jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
-        NovaSenhaPanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 170, 10));
-
-        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
-        NovaSenhaPanel.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 170, 10));
-
-        btnEntrar1.setBackground(new java.awt.Color(204, 255, 204));
-        btnEntrar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Entrar");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel4MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel4MouseReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnEntrar1Layout = new javax.swing.GroupLayout(btnEntrar1);
-        btnEntrar1.setLayout(btnEntrar1Layout);
-        btnEntrar1Layout.setHorizontalGroup(
-            btnEntrar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-        );
-        btnEntrar1Layout.setVerticalGroup(
-            btnEntrar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-        );
-
-        NovaSenhaPanel.add(btnEntrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("X");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        NovaSenhaPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 30, 30));
 
         javax.swing.GroupLayout LoginConfLayout = new javax.swing.GroupLayout(LoginConf.getContentPane());
         LoginConf.getContentPane().setLayout(LoginConfLayout);
         LoginConfLayout.setHorizontalGroup(
             LoginConfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 384, Short.MAX_VALUE)
-            .addGroup(LoginConfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(LoginConfLayout.createSequentialGroup()
-                    .addComponent(NovaSenhaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         LoginConfLayout.setVerticalGroup(
             LoginConfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 257, Short.MAX_VALUE)
-            .addGroup(LoginConfLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(LoginConfLayout.createSequentialGroup()
-                    .addComponent(NovaSenhaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema De Gestão Prisional");
+        setMinimumSize(new java.awt.Dimension(519, 332));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(519, 332));
 
         jPanel1.setBackground(new java.awt.Color(60, 179, 113));
 
@@ -176,7 +113,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jLabel3)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,10 +122,71 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jSplitPane1.setLeftComponent(jPanel1);
+
+        pnlCards.setLayout(new java.awt.CardLayout());
+
+        NovaSenhaPanel.setBackground(new java.awt.Color(204, 255, 204));
+        NovaSenhaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtNovaSenha.setBackground(new java.awt.Color(204, 255, 204));
+        txtNovaSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        txtNovaSenha.setText("jPasswordField1");
+        txtNovaSenha.setBorder(null);
+        NovaSenhaPanel.add(txtNovaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 160, -1));
+
+        txtUsuarioNovaSenha.setBackground(new java.awt.Color(204, 255, 204));
+        txtUsuarioNovaSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        txtUsuarioNovaSenha.setText("Usuario");
+        txtUsuarioNovaSenha.setBorder(null);
+        NovaSenhaPanel.add(txtUsuarioNovaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 160, -1));
+
+        txtConfNovaSenha.setBackground(new java.awt.Color(204, 255, 204));
+        txtConfNovaSenha.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        txtConfNovaSenha.setText("jPasswordField1");
+        txtConfNovaSenha.setBorder(null);
+        NovaSenhaPanel.add(txtConfNovaSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 160, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jLabel7.setText("Criar Senha");
+        NovaSenhaPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 110, 60));
+
+        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
+        NovaSenhaPanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 170, 10));
+
+        jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
+        NovaSenhaPanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 170, 10));
+
+        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
+        NovaSenhaPanel.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 170, 10));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("X");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        NovaSenhaPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 30, 30));
+
+        jButton9.setBackground(new java.awt.Color(204, 255, 204));
+        jButton9.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jButton9.setText("Entrar");
+        jButton9.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
+        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton9MouseClicked(evt);
+            }
+        });
+        NovaSenhaPanel.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 100, 30));
+
+        pnlCards.add(NovaSenhaPanel, "NovaSenhaPanel");
+
+        SenhaPanel.setBackground(new java.awt.Color(204, 255, 204));
 
         txtUsuario.setBackground(new java.awt.Color(204, 255, 204));
         txtUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -219,35 +217,6 @@ public class Login extends javax.swing.JFrame {
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnEntrar.setBackground(new java.awt.Color(204, 255, 204));
-        btnEntrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Entrar");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel1MousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jLabel1MouseReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnEntrarLayout = new javax.swing.GroupLayout(btnEntrar);
-        btnEntrar.setLayout(btnEntrarLayout);
-        btnEntrarLayout.setHorizontalGroup(
-            btnEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        btnEntrarLayout.setVerticalGroup(
-            btnEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-        );
-
         btnFechar.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         btnFechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnFechar.setText("X");
@@ -263,32 +232,43 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtSenha)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jButton10.setBackground(new java.awt.Color(204, 255, 204));
+        jButton10.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jButton10.setText("Entrar");
+        jButton10.setBorder(new com.formdev.flatlaf.ui.FlatEmptyBorder());
+        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton10MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SenhaPanelLayout = new javax.swing.GroupLayout(SenhaPanel);
+        SenhaPanel.setLayout(SenhaPanelLayout);
+        SenhaPanelLayout.setHorizontalGroup(
+            SenhaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SenhaPanelLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(SenhaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtSenha)
+                    .addComponent(jSeparator1)
+                    .addComponent(txtUsuario)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SenhaPanelLayout.createSequentialGroup()
+                .addContainerGap(256, Short.MAX_VALUE)
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addGap(254, 254, 254))
+            .addGroup(SenhaPanelLayout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        SenhaPanelLayout.setVerticalGroup(
+            SenhaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SenhaPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnFechar)
-                .addGap(84, 84, 84)
+                .addGap(75, 75, 75)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,24 +276,28 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(302, Short.MAX_VALUE))
         );
+
+        pnlCards.add(SenhaPanel, "SenhaPanel");
+
+        jSplitPane1.setRightComponent(pnlCards);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -321,7 +305,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        
+
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnFecharMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseClicked
@@ -336,15 +320,6 @@ public class Login extends javax.swing.JFrame {
         txtSenha.setText("");
     }//GEN-LAST:event_txtSenhaFocusGained
 
-    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
-        btnEntrar.setBackground(ClickedColor);
-//        jLabel1.setForeground(white);
-    }//GEN-LAST:event_jLabel1MousePressed
-
-    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
-        btnEntrar.setBackground(defaultColor);
-    }//GEN-LAST:event_jLabel1MouseReleased
-
     private void btnFecharMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMousePressed
         btnFechar.setBackground(ClickedColor);
     }//GEN-LAST:event_btnFecharMousePressed
@@ -353,23 +328,179 @@ public class Login extends javax.swing.JFrame {
         btnFechar.setBackground(defaultColor);
     }//GEN-LAST:event_btnFecharMouseReleased
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        this.setVisible(false);
-        LoginConf.setVisible(true);
-    }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-        btnEntrar.setBackground(ClickedColor);
-        //        jLabel1.setForeground(white);
-    }//GEN-LAST:event_jLabel4MousePressed
-
-    private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
-        btnEntrar.setBackground(defaultColor);
-    }//GEN-LAST:event_jLabel4MouseReleased
+    private void GuardarDataAcesso(Usuario u, String nome, String senha) {
+        u.setAcesso(LocalDateTime.now().toLocalDate().toString());
+        u.setNome(nome);
+        u.setSenha(senha);
+        uController.Actualizar(u);
+    }
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
+        // TODO add your handling code here:
+        String numBI = uController.find(user).get(0).getNumBI().getNumBI();
+        String Acesso = uController.find(user).get(0).getAcesso();
+
+//        Usuario recebe os novos valores, Mas primeiro Verifica se as novas senhas estão Corretas
+        if (txtNovaSenha.getText().equals(txtConfNovaSenha.getText())) {
+            user.setNome(txtUsuarioNovaSenha.getText());
+            user.setSenha(txtNovaSenha.getText());
+            f.setNumBI(numBI);
+            user.setNumBI(f);
+
+//        Atualizar a Nova Senha
+            if (Acesso == null) {
+                uController.Actualizar(user);
+            }
+//        Verificar o tipo de usuario a logar
+            switch (uController.Logar(user)) {
+                case 0 -> {
+                    GuardarDataAcesso(user, txtUsuarioNovaSenha.getText(), txtNovaSenha.getText());
+                    dispose();
+                    new AdminHome().setVisible(true);
+                }
+                case 1 -> {
+                    GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                    dispose();
+                    var f = new Funcionario();
+                    uController.findEspecificFuncionario(user, f);
+                    new Home(f).setVisible(true);
+                }
+                case 2 -> {
+                    GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                    dispose();
+                    var f = new Funcionario();
+                    uController.findEspecificFuncionario(user, f);
+                    new GHome(f).setVisible(true);
+                }
+                default ->
+                    JOptionPane.showMessageDialog(null, "Senha Ou Usuario Errado");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "As Senhas são Diferentes");
+        }
+    }//GEN-LAST:event_jButton9MouseClicked
+
+    private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
+        // TODO add your handling code here:
+
+        user.setNome(txtUsuario.getText());
+        user.setSenha(txtSenha.getText());
+
+        switch (uController.Logar(user)) {
+            case 0 -> {
+                //            Carregar o Criar Nova Senha
+                txtUsuarioNovaSenha.setText(user.getNome());
+                txtNovaSenha.setText(user.getSenha());
+                txtConfNovaSenha.setText(user.getSenha());
+//            Verificar pela BD se é o primeiro acesso ao sistema
+
+                if (uController.find(user).get(0).getAcesso() == null) {
+                    cardLayout.show(pnlCards, "NovaSenhaPanel");
+                } else {
+                    GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                    dispose();
+                    new AdminHome().setVisible(true);
+                }
+            }
+            case 1 -> {
+                //            Carregar o Criar Nova Senha
+                txtUsuarioNovaSenha.setText(user.getNome());
+                txtNovaSenha.setText(user.getSenha());
+                txtConfNovaSenha.setText(user.getSenha());
+//            Verificar pela BD se é o primeiro acesso ao sistema
+
+                if (uController.find(user).get(0).getAcesso() == null) {
+                    cardLayout.show(pnlCards, "NovaSenhaPanel");
+                } else {
+                    GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                    dispose();
+                    var f = new Funcionario();
+                    uController.findEspecificFuncionario(user, f);
+                    new Home(f).setVisible(true);
+                }
+            }
+            case 2 -> {
+                //            Carregar o Criar Nova Senha
+                txtUsuarioNovaSenha.setText(user.getNome());
+                txtNovaSenha.setText(user.getSenha());
+                txtConfNovaSenha.setText(user.getSenha());
+//            Verificar pela BD se é o primeiro acesso ao sistema
+
+                if (uController.find(user).get(0).getAcesso() == null) {
+                    cardLayout.show(pnlCards, "NovaSenhaPanel");
+                } else {
+                    GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                    dispose();
+                    var f = new Funcionario();
+                    uController.findEspecificFuncionario(user, f);
+                    new GHome(f).setVisible(true);
+                }
+            }
+            default ->
+                JOptionPane.showMessageDialog(null, "Senha Ou Usuario Errado");
+        }
+        /*
+//        Verificar o tipo de usuario a logar
+        if (uController.Logar(user) == 0) {
+
+//            Carregar o Criar Nova Senha
+            txtUsuarioNovaSenha.setText(user.getNome());
+            txtNovaSenha.setText(user.getSenha());
+            txtConfNovaSenha.setText(user.getSenha());
+//            Verificar pela BD se é o primeiro acesso ao sistema
+
+            if (uController.find(user).get(0).getAcesso() == null) {
+                cardLayout.show(pnlCards, "NovaSenhaPanel");
+            } else {
+                GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                dispose();
+                new AdminHome().setVisible(true);
+            }
+        } else if (uController.Logar(user) == 1) {
+
+//            Carregar o Criar Nova Senha
+            txtUsuarioNovaSenha.setText(user.getNome());
+            txtNovaSenha.setText(user.getSenha());
+            txtConfNovaSenha.setText(user.getSenha());
+//            Verificar pela BD se é o primeiro acesso ao sistema
+
+            if (uController.find(user).get(0).getAcesso() == null) {
+                cardLayout.show(pnlCards, "NovaSenhaPanel");
+            } else {
+                GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                dispose();
+                var f = new Funcionario();
+                uController.findEspecificFuncionario(user, f);
+                new Home(f).setVisible(true);
+            }
+        }
+        if (uController.Logar(user) == 2) {
+
+//            Carregar o Criar Nova Senha
+            txtUsuarioNovaSenha.setText(user.getNome());
+            txtNovaSenha.setText(user.getSenha());
+            txtConfNovaSenha.setText(user.getSenha());
+//            Verificar pela BD se é o primeiro acesso ao sistema
+
+            if (uController.find(user).get(0).getAcesso() == null) {
+                cardLayout.show(pnlCards, "NovaSenhaPanel");
+            } else {
+                GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                dispose();
+                var f = new Funcionario();
+                uController.findEspecificFuncionario(user, f);
+                new GHome(f).setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Senha Ou Usuario Errado");
+        } */
+
+    }//GEN-LAST:event_jButton10MouseClicked
 
     /**
      * @param args the command line arguments
@@ -409,22 +540,22 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame LoginConf;
     private javax.swing.JPanel NovaSenhaPanel;
-    private javax.swing.JPanel btnEntrar;
-    private javax.swing.JPanel btnEntrar1;
+    private javax.swing.JPanel SenhaPanel;
     private javax.swing.JLabel btnFechar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel pnlCards;
     private javax.swing.JPasswordField txtConfNovaSenha;
     private javax.swing.JPasswordField txtNovaSenha;
     private javax.swing.JPasswordField txtSenha;

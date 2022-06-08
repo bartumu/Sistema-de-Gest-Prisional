@@ -4,24 +4,89 @@
  */
 package MODEL;
 
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author Melhor De Mim
  */
-public class Crime {
+@Entity
+@NamedQueries({
+    @NamedQuery(name = "Crime.findAll", query = "SELECT c FROM Crime c"),
+    @NamedQuery(name = "Crime.findByData", query = "SELECT c FROM Crime c WHERE c.crimePK.data = :data"),
+    @NamedQuery(name = "Crime.findByDescricao", query = "SELECT c FROM Crime c WHERE c.descricao = :descricao"),
+    @NamedQuery(name = "Crime.findByNumBI", query = "SELECT c FROM Crime c WHERE c.crimePK.numBI = :numBI")})
+public class Crime implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected CrimePK crimePK;
+    @Basic(optional = false)
+    private String descricao;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "crime")
+    private CrimeLocal crimeLocal;
+    @JoinColumn(name = "idEsquadra", referencedColumnName = "idEsquadra")
+    @ManyToOne(optional = false)
+    private Esquadra idEsquadra;
+    @JoinColumn(name = "numBI", referencedColumnName = "numBI", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
     private Prisioneiro prisioneiro;
-    private String data;
-    private Pris_Pertence pertences;
-    private Esquadra esquadra;
 
     public Crime() {
     }
 
-    public Crime(Prisioneiro prisioneiro, String data, Pris_Pertence pertences, Esquadra esquadra) {
-        this.prisioneiro = prisioneiro;
-        this.data = data;
-        this.pertences = pertences;
-        this.esquadra = esquadra;
+    public Crime(CrimePK crimePK) {
+        this.crimePK = crimePK;
+    }
+
+    public Crime(CrimePK crimePK, String descricao) {
+        this.crimePK = crimePK;
+        this.descricao = descricao;
+    }
+
+    public Crime(String data, String numBI) {
+        this.crimePK = new CrimePK(data, numBI);
+    }
+
+    public CrimePK getCrimePK() {
+        return crimePK;
+    }
+
+    public void setCrimePK(CrimePK crimePK) {
+        this.crimePK = crimePK;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public CrimeLocal getCrimeLocal() {
+        return crimeLocal;
+    }
+
+    public void setCrimeLocal(CrimeLocal crimeLocal) {
+        this.crimeLocal = crimeLocal;
+    }
+
+    public Esquadra getIdEsquadra() {
+        return idEsquadra;
+    }
+
+    public void setIdEsquadra(Esquadra idEsquadra) {
+        this.idEsquadra = idEsquadra;
     }
 
     public Prisioneiro getPrisioneiro() {
@@ -32,31 +97,29 @@ public class Crime {
         this.prisioneiro = prisioneiro;
     }
 
-    public String getData() {
-        return data;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (crimePK != null ? crimePK.hashCode() : 0);
+        return hash;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Crime)) {
+            return false;
+        }
+        Crime other = (Crime) object;
+        if ((this.crimePK == null && other.crimePK != null) || (this.crimePK != null && !this.crimePK.equals(other.crimePK))) {
+            return false;
+        }
+        return true;
     }
 
-    public Pris_Pertence getPertences() {
-        return pertences;
+    @Override
+    public String toString() {
+        return "MODEL.Crime[ crimePK=" + crimePK + " ]";
     }
-
-    public void setPertences(Pris_Pertence pertences) {
-        this.pertences = pertences;
-    }
-
-    public Esquadra getEsquadra() {
-        return esquadra;
-    }
-
-    public void setEsquadra(Esquadra esquadra) {
-        this.esquadra = esquadra;
-    }
-
-    
-    
     
 }

@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,9 +19,12 @@ import java.sql.ResultSet;
 public class BlocoController extends CRUDController {
 
     public BlocoController() {
-        super("bloco","idBloco");
+        super("bloco", "idBloco");
         super.setInserirQuery(String.format("INSERT INTO %s (descricao) values (?)", this.tabela));
-        super.setAtualizarQuery(String.format("UPDATE bloco SET descricao = ? WHERE idBloco = ?", this.tabela));
+        super.setAtualizarQuery(String.format("UPDATE %s SET descricao = ? WHERE idBloco = ?", this.tabela));
+        super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
+        super.setSelecionarQuery(String.format("SELECT * FROM %s", this.tabela));
+        super.setSeleccaoPersonalizadoQuery(String.format("SELECT idBloco FROM %s WHERE descricao = ?", this.tabela));
     }
 
     @Override
@@ -40,8 +45,9 @@ public class BlocoController extends CRUDController {
         if (update == true) {
             stmt.setString(1, bloco.getDescricao());
             stmt.setInt(2, bloco.getIdBloco());
-        }else 
+        } else {
             stmt.setString(1, bloco.getDescricao());
+        }
 
     }
 
@@ -76,6 +82,12 @@ public class BlocoController extends CRUDController {
     }
 
     @Override
+    public ArrayList<Bloco> find(Object object) {
+        Bloco b = (Bloco) object;
+        return (ArrayList<Bloco>) super.getObjectosPersonalizados(b); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
     public ArrayList<Bloco> Find(int id) {
         return super.Find(id); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
@@ -89,13 +101,39 @@ public class BlocoController extends CRUDController {
 //        System.out.println(" " + bc.Find(10).get(0).getDescricao());
     }
 
-    @Override
-    protected Object convertObjecto(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     public void Cadastrar(Bloco b) {
 
+    }
+
+    @Override
+    protected void setValoresQueryPersonalizado(PreparedStatement stmt, Object object) throws SQLException {
+        Bloco b = (Bloco) object;
+        stmt.setString(1, b.getDescricao());
+    }
+
+    @Override
+    protected ArrayList criarObjectoPersonalizado(ResultSet rs) throws SQLException {
+        ArrayList<Bloco> bLista = new ArrayList<>();
+        var b = new Bloco();
+        rs.next();
+        b.setIdBloco(rs.getInt("idBloco"));
+        bLista.add(b);
+        return bLista;
+    }
+
+    public void CarregarTabela(DefaultTableModel tbModelB, JTable tblBloco) {
+        Object[] columnNames = {"Descrição"};
+        var bController = new BlocoController();
+        tbModelB.setColumnIdentifiers(columnNames);
+        for (int i = 0; i < bController.findAll().size(); i++) {
+
+            Object[] lista = {
+                bController.findAll().get(i).getDescricao()
+            };
+
+            tbModelB.addRow(lista);
+        }
+        tblBloco.setModel(tbModelB);
     }
 
 }
