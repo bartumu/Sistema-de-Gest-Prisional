@@ -59,11 +59,10 @@ public class Home extends javax.swing.JFrame {
 //        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
 
         cController = new CelaController();
-        celaPK = new CelaPK();
         CarregarCombo(cController);
+        celaPK = new CelaPK();
         CarregarTabelaPris(tblPrisioneiro);
 //        CarregarTabela(tblRelactorio);
-        
 
     }
 
@@ -84,7 +83,7 @@ public class Home extends javax.swing.JFrame {
         prisController = new PrisioneiroController();
         cController = new CelaController();
 
-        tbModelPris = new DefaultTableModel(columnNames, 0){
+        tbModelPris = new DefaultTableModel(columnNames, 0) {
 
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -100,7 +99,7 @@ public class Home extends javax.swing.JFrame {
                 prisController.findAll().get(i).getSexo(),
                 criController.Find(prisController.findAll().get(i).getNumBI()).get(i).getDescricao(),
                 cController.Find(prisController.findAll().get(i).getIdBloco().getCelaPK().getIdBloco()).get(i).getCelaPK().getDescricao(),
-                 ejController.Find(prisController.findAll().get(i).getNumBI()).get(i).getPena()
+                ejController.Find(prisController.findAll().get(i).getNumBI()).get(i).getPena()
             };
 
             tbModelPris.addRow(lista);
@@ -169,7 +168,6 @@ public class Home extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         txtEndereco = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        txtSexo = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         txtDataNasc = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
@@ -198,6 +196,8 @@ public class Home extends javax.swing.JFrame {
         btnCad = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        rdbM = new javax.swing.JRadioButton();
+        rdbF = new javax.swing.JRadioButton();
         GuardPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblGuarda = new javax.swing.JTable();
@@ -654,16 +654,6 @@ public class Home extends javax.swing.JFrame {
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtSexo.setBackground(new java.awt.Color(204, 255, 204));
-        txtSexo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtSexo.setText("Sexo(M|F)");
-        txtSexo.setBorder(null);
-        txtSexo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSexoFocusGained(evt);
-            }
-        });
-
         jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
 
         txtDataNasc.setBackground(new java.awt.Color(204, 255, 204));
@@ -849,6 +839,27 @@ public class Home extends javax.swing.JFrame {
         jButton3.setText("Absolver");
         jButton3.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
 
+        rdbM.setBackground(new java.awt.Color(204, 255, 204));
+        rdbM.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        rdbM.setSelected(true);
+        rdbM.setText("Masculino");
+        rdbM.setBorder(null);
+        rdbM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdbMMouseClicked(evt);
+            }
+        });
+
+        rdbF.setBackground(new java.awt.Color(204, 255, 204));
+        rdbF.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        rdbF.setText("Feminino");
+        rdbF.setBorder(null);
+        rdbF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdbFMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -860,17 +871,21 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(25, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDataNasc, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .addComponent(txtEstadoCivil)
-                            .addComponent(txtSexo)
-                            .addComponent(jSeparator2)
-                            .addComponent(txtEndereco)
-                            .addComponent(txtNome)
-                            .addComponent(jSeparator1)
-                            .addComponent(jSeparator7)
-                            .addComponent(jSeparator4)
-                            .addComponent(jSeparator3))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtDataNasc, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                .addComponent(txtEstadoCivil)
+                                .addComponent(jSeparator2)
+                                .addComponent(txtEndereco)
+                                .addComponent(txtNome)
+                                .addComponent(jSeparator1)
+                                .addComponent(jSeparator7)
+                                .addComponent(jSeparator4)
+                                .addComponent(jSeparator3))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(rdbM)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdbF)))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -949,7 +964,9 @@ public class Home extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(rdbM)
+                                    .addComponent(rdbF))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1264,6 +1281,9 @@ public class Home extends javax.swing.JFrame {
         imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-06.png"));
         letterLabel.setText("PRISIONEIROS");
         cardLayout.show(pnlCards, "prisPanel");
+        cController = new CelaController();
+        CarregarCombo(cController);
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -1343,11 +1363,6 @@ public class Home extends javax.swing.JFrame {
         txtDataNasc.setText("");
     }//GEN-LAST:event_txtDataNascFocusGained
 
-    private void txtSexoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSexoFocusGained
-        // TODO add your handling code here:
-        txtSexo.setText("");
-    }//GEN-LAST:event_txtSexoFocusGained
-
     private void txtEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusGained
         // TODO add your handling code here:
         txtEndereco.setText("");
@@ -1402,7 +1417,7 @@ public class Home extends javax.swing.JFrame {
 
     private void btnCadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadMouseClicked
         // TODO add your handling code here:
-        
+
         try {
             prisController = new PrisioneiroController();
             Pris = new Prisioneiro();
@@ -1416,7 +1431,11 @@ public class Home extends javax.swing.JFrame {
             Pris.setDataEntrada(txtDataEntrada.getText());
             Pris.setDataNasc(txtDataNasc.getText());
             Pris.setNumBI(txtNumBI.getText());
-            Pris.setSexo(txtSexo.getText());
+            if (rdbF.isSelected()) {
+                Pris.setSexo("F");
+            } else {
+                Pris.setSexo("M");
+            }
             celaPK.setDescricao((String) CelaCombo.getSelectedItem());
             celaPK.setIdBloco(cController.findIdBloco(celaPK));
             c.setCelaPK(celaPK);
@@ -1476,7 +1495,6 @@ public class Home extends javax.swing.JFrame {
             txtEstadoCivil.setText("Estado Civil");
             txtDataEntrada.setText("Data de Entrada");
             txtDataNasc.setText("Data de Nascimento");
-            txtSexo.setText("Sexo (M|F)");
             txtEndereco.setText("Endereço");
             txtNome.setText("Nome completo");
             txtDataJulga.setText("Data Do Julgamento");
@@ -1488,12 +1506,23 @@ public class Home extends javax.swing.JFrame {
     private void btnEdTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEdTurnoMouseClicked
         // TODO add your handling code here:
 
-        
+
     }//GEN-LAST:event_btnEdTurnoMouseClicked
 
     private void btnGuardaLiberarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardaLiberarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardaLiberarMouseClicked
+
+    private void rdbMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbMMouseClicked
+        // TODO add your handling code here:
+        rdbF.setSelected(false);
+    }//GEN-LAST:event_rdbMMouseClicked
+
+    private void rdbFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbFMouseClicked
+        // TODO add your handling code here:
+
+        rdbM.setSelected(false);
+    }//GEN-LAST:event_rdbFMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1608,6 +1637,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel letterLabel4;
     private javax.swing.JPanel pnlCards;
     private javax.swing.JPanel prisPanel;
+    private javax.swing.JRadioButton rdbF;
+    private javax.swing.JRadioButton rdbM;
     private javax.swing.JTable tblGuarda;
     private javax.swing.JTable tblPrisioneiro;
     private javax.swing.JTable tblRelactorio;
@@ -1625,7 +1656,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumBI;
     private javax.swing.JTextField txtPena;
-    private javax.swing.JTextField txtSexo;
     private javax.swing.JTextField txtTribunal;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables

@@ -834,6 +834,11 @@ public class AdminHome extends javax.swing.JFrame {
         }
     }
     );
+    tblBloco.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            tblBlocoMouseClicked(evt);
+        }
+    });
     jScrollPane2.setViewportView(tblBloco);
 
     btnCadBloco.setBackground(new java.awt.Color(204, 255, 204));
@@ -850,11 +855,21 @@ public class AdminHome extends javax.swing.JFrame {
     btnEdBloco.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
     btnEdBloco.setText("Editar");
     btnEdBloco.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
+    btnEdBloco.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            btnEdBlocoMouseClicked(evt);
+        }
+    });
 
     btnExBloco.setBackground(new java.awt.Color(204, 255, 204));
     btnExBloco.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-    btnExBloco.setText("Absolver");
+    btnExBloco.setText("Excluir");
     btnExBloco.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
+    btnExBloco.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            btnExBlocoMouseClicked(evt);
+        }
+    });
 
     javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
     jPanel5.setLayout(jPanel5Layout);
@@ -914,6 +929,8 @@ public class AdminHome extends javax.swing.JFrame {
     );
 
     pnlCards.add(pnlBloco, "pnlBloco");
+
+    pnlCela.setBackground(new java.awt.Color(204, 255, 204));
 
     jPanel6.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -1075,6 +1092,8 @@ public class AdminHome extends javax.swing.JFrame {
     );
 
     pnlCards.add(pnlCela, "pnlCela");
+
+    pnlUsuario.setBackground(new java.awt.Color(204, 255, 204));
 
     jPanel7.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -1904,7 +1923,17 @@ public class AdminHome extends javax.swing.JFrame {
             bController.Inserir(bloco);
             JOptionPane.showMessageDialog(null, "Bloco Cadastrado Com Sucesso");
             bController.CarregarTabela(tbModelB, tblBloco);
+
             CarregarCombo();
+            tbModelB = new DefaultTableModel() {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+            new BlocoController().CarregarTabela(tbModelB, tblBloco);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -1929,6 +1958,15 @@ public class AdminHome extends javax.swing.JFrame {
             celaPK.setIdBloco(bController.find(bloco).get(0).getIdBloco());
             cela.setCelaPK(celaPK);
             cController.Inserir(cela);
+            tbModelC = new DefaultTableModel() {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+            CarregarTabela();
             CarregarTabela();
             JOptionPane.showMessageDialog(null, "Cela Cadastrada Com sucesso");
         } catch (Exception e) {
@@ -2148,6 +2186,72 @@ public class AdminHome extends javax.swing.JFrame {
 
         rdbM.setSelected(false);
     }//GEN-LAST:event_rdbFMouseClicked
+private static String bloc = "";
+    private void tblBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBlocoMouseClicked
+        // TODO add your handling code here:
+        btnExBloco.setEnabled(true);
+        int j = tblBloco.getSelectedRow();
+        bloc = tbModelB.getValueAt(j, 0).toString();
+
+        btnEdBloco.setEnabled(false);
+        if (evt.getClickCount() == 2) {
+            edit = true;
+            int i = tblBloco.getSelectedRow();
+            txtBloco.setText(tbModelB.getValueAt(i, 0).toString());
+            btnEdBloco.setEnabled(true);
+            btnCadBloco.setEnabled(false);
+            bloc = txtBloco.getText();
+            btnExBloco.setEnabled(false);
+        }
+    }//GEN-LAST:event_tblBlocoMouseClicked
+
+    private void btnEdBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEdBlocoMouseClicked
+        // TODO add your handling code here:
+        
+        var b = new Bloco();
+        var bController = new BlocoController();
+        b.setDescricao(bloc);
+        b.setIdBloco(bController.FindId(b));
+        b.setDescricao(txtBloco.getText());
+        bController.Actualizar(b);
+        JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
+        Clicado = false;
+
+        tbModelB = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        bController.CarregarTabela(tbModelB, tblBloco);
+        btnEdBloco.setEnabled(false);
+    }//GEN-LAST:event_btnEdBlocoMouseClicked
+
+    private void btnExBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExBlocoMouseClicked
+        // TODO add your handling code here:
+        
+        var b = new Bloco();
+        var bController = new BlocoController();
+        b.setDescricao(bloc);
+        b.setIdBloco(bController.FindId(b));
+        bController.Delete(b.getIdBloco());
+        JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
+        Clicado = false;
+
+        tbModelB = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        bController.CarregarTabela(tbModelB, tblBloco);
+        btnExBloco.setEnabled(false);
+        btnCadFuncao.setEnabled(true);
+    }//GEN-LAST:event_btnExBlocoMouseClicked
 
     /**
      * @param args the command line arguments

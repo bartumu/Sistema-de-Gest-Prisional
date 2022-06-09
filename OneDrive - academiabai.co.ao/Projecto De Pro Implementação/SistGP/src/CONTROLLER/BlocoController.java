@@ -101,8 +101,21 @@ public class BlocoController extends CRUDController {
 //        System.out.println(" " + bc.Find(10).get(0).getDescricao());
     }
 
-    public void Cadastrar(Bloco b) {
-
+    public int FindId(Bloco b) {
+        this.AbrirConexao();
+        String sql = String.format("SELECT idBloco FROM %s WHERE descricao = ?", this.tabela);
+        try ( PreparedStatement stmt = this.conex.prepareStatement(sql)) {
+            stmt.setString(1, b.getDescricao());
+            stmt.execute();
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+             return rs.getInt("idBloco");
+            
+        } catch (SQLException ex) {
+            this.FecharConexao();
+            ex.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
