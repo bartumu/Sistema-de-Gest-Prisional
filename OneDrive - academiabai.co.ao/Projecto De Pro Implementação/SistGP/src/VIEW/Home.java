@@ -62,7 +62,7 @@ public class Home extends javax.swing.JFrame {
         celaPK = new CelaPK();
         CarregarCombo(cController);
         CarregarTabelaPris(tblPrisioneiro);
-        CarregarTabela(tblRelactorio);
+//        CarregarTabela(tblRelactorio);
         
 
     }

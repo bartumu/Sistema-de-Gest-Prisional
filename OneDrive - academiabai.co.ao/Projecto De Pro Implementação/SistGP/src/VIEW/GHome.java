@@ -5,6 +5,8 @@
 package VIEW;
 
 import MODEL.Funcionario;
+import java.awt.CardLayout;
+import java.awt.Color;
 
 /**
  *
@@ -17,9 +19,20 @@ public class GHome extends javax.swing.JFrame {
     /**
      * Creates new form GHome
      */
+    Color defaultColor, ClickedColor, inDefaultColor, inClickedColor;
+    CardLayout cardLayout;
     public GHome(Funcionario f) {
         initComponents();
         System.out.println(f.getNome());
+        
+        defaultColor = new Color(60, 179, 113);
+        ClickedColor = new Color(204, 255, 204);
+        inDefaultColor = new Color(204, 255, 204);
+        inClickedColor = new Color(60, 179, 113);
+
+        cardLayout = (CardLayout) (pnlCards.getLayout());
+        cardLayout.show(pnlCards, "HomePanel");
+        imgLabel.setIcon(new javax.swing.ImageIcon(""));
     }
 
     /**
@@ -46,39 +59,10 @@ public class GHome extends javax.swing.JFrame {
         btnSair1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         pnlCards = new javax.swing.JPanel();
-        pnlFuncionario = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        txtNome = new javax.swing.JTextField();
-        txtEndereco = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        txtDataNasc = new javax.swing.JTextField();
-        jSeparator4 = new javax.swing.JSeparator();
-        txtDataAdmissao = new javax.swing.JTextField();
-        jSeparator5 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
-        jSeparator7 = new javax.swing.JSeparator();
-        txtEstadoCivil = new javax.swing.JTextField();
-        txtNumBI = new javax.swing.JTextField();
-        jSeparator8 = new javax.swing.JSeparator();
-        FuncaoCombo = new javax.swing.JComboBox<>();
-        btnCadFuncionario = new javax.swing.JButton();
-        btnEdFuncionario = new javax.swing.JButton();
-        btnExFuncionario = new javax.swing.JButton();
-        rdbM = new javax.swing.JRadioButton();
-        rdbF = new javax.swing.JRadioButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblFuncionario = new javax.swing.JTable();
         RelactPanel = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        txtTurno = new javax.swing.JTextField();
-        jSeparator17 = new javax.swing.JSeparator();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblTurno = new javax.swing.JTable();
-        btnCadTurno = new javax.swing.JButton();
-        btnEdTurno = new javax.swing.JButton();
-        btnExTurno = new javax.swing.JButton();
         HomePanel = new javax.swing.JPanel();
         imgLabel1 = new javax.swing.JLabel();
         letterLabel2 = new javax.swing.JLabel();
@@ -179,9 +163,7 @@ public class GHome extends javax.swing.JFrame {
         );
         btnTurnosLayout.setVerticalGroup(
             btnTurnosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnTurnosLayout.createSequentialGroup()
-                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         btnFuncao.setBackground(new java.awt.Color(60, 179, 113));
@@ -299,319 +281,26 @@ public class GHome extends javax.swing.JFrame {
 
         pnlCards.setLayout(new java.awt.CardLayout());
 
-        pnlFuncionario.setBackground(new java.awt.Color(204, 255, 204));
+        RelactPanel.setBackground(new java.awt.Color(204, 255, 204));
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel9.setBackground(new java.awt.Color(204, 255, 204));
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtNome.setBackground(new java.awt.Color(204, 255, 204));
-        txtNome.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtNome.setText("Nome");
-        txtNome.setBorder(null);
-        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNomeFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNomeFocusLost(evt);
-            }
-        });
-
-        txtEndereco.setBackground(new java.awt.Color(204, 255, 204));
-        txtEndereco.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtEndereco.setText("Endereço");
-        txtEndereco.setBorder(null);
-        txtEndereco.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEnderecoFocusGained(evt);
-            }
-        });
-
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtDataNasc.setBackground(new java.awt.Color(204, 255, 204));
-        txtDataNasc.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtDataNasc.setText("Data de Nascimento");
-        txtDataNasc.setBorder(null);
-        txtDataNasc.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDataNascFocusGained(evt);
-            }
-        });
-        txtDataNasc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataNascActionPerformed(evt);
-            }
-        });
-
-        jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtDataAdmissao.setBackground(new java.awt.Color(204, 255, 204));
-        txtDataAdmissao.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtDataAdmissao.setText("Data de Admissão");
-        txtDataAdmissao.setBorder(null);
-        txtDataAdmissao.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDataAdmissaoFocusGained(evt);
-            }
-        });
-        txtDataAdmissao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataAdmissaoActionPerformed(evt);
-            }
-        });
-
-        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
-
-        jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
-
-        jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtEstadoCivil.setBackground(new java.awt.Color(204, 255, 204));
-        txtEstadoCivil.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtEstadoCivil.setText("Estado Civil");
-        txtEstadoCivil.setBorder(null);
-        txtEstadoCivil.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtEstadoCivilFocusGained(evt);
-            }
-        });
-
-        txtNumBI.setBackground(new java.awt.Color(204, 255, 204));
-        txtNumBI.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        txtNumBI.setText("Número Do BI");
-        txtNumBI.setBorder(null);
-        txtNumBI.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNumBIFocusGained(evt);
-            }
-        });
-
-        jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
-
-        FuncaoCombo.setBackground(new java.awt.Color(204, 255, 204));
-        FuncaoCombo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        FuncaoCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CELA", "Item 2", "Item 3", "Item 4" }));
-        FuncaoCombo.setBorder(null);
-
-        btnCadFuncionario.setBackground(new java.awt.Color(204, 255, 204));
-        btnCadFuncionario.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        btnCadFuncionario.setText("Cadastrar");
-        btnCadFuncionario.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
-        btnCadFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCadFuncionarioMouseClicked(evt);
-            }
-        });
-
-        btnEdFuncionario.setBackground(new java.awt.Color(204, 255, 204));
-        btnEdFuncionario.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        btnEdFuncionario.setText("Editar");
-        btnEdFuncionario.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
-
-        btnExFuncionario.setBackground(new java.awt.Color(204, 255, 204));
-        btnExFuncionario.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        btnExFuncionario.setText("Excluir");
-        btnExFuncionario.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
-
-        rdbM.setBackground(new java.awt.Color(204, 255, 204));
-        rdbM.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        rdbM.setSelected(true);
-        rdbM.setText("Masculino");
-        rdbM.setBorder(null);
-        rdbM.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rdbMMouseClicked(evt);
-            }
-        });
-
-        rdbF.setBackground(new java.awt.Color(204, 255, 204));
-        rdbF.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        rdbF.setText("Feminino");
-        rdbF.setBorder(null);
-        rdbF.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rdbFMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSeparator7)
-                                .addComponent(txtEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rdbM)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rdbF)))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtNumBI, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDataNasc, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(txtDataAdmissao, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(jSeparator6)
-                            .addComponent(jSeparator8)
-                            .addComponent(FuncaoCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(btnCadFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(98, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDataAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdbM)
-                            .addComponent(rdbF))
-                        .addGap(4, 4, 4)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(FuncaoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtNumBI, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
-        );
-
-        tblFuncionario.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        tblFuncionario.setModel(new javax.swing.table.DefaultTableModel(
+        tblTurno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Nome", "Endereço", "Sexo", "Estado Civil", "Data de Nascimento", "Data De Admissão", "Função"
+                "Descrição"
             }
-
         )
         {
             public boolean isCellEditable(int row, int column){
                 return false;
             }
         }
-    );
-    jScrollPane1.setViewportView(tblFuncionario);
-
-    javax.swing.GroupLayout pnlFuncionarioLayout = new javax.swing.GroupLayout(pnlFuncionario);
-    pnlFuncionario.setLayout(pnlFuncionarioLayout);
-    pnlFuncionarioLayout.setHorizontalGroup(
-        pnlFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(pnlFuncionarioLayout.createSequentialGroup()
-            .addGap(23, 23, 23)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addGroup(pnlFuncionarioLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane1)
-            .addContainerGap())
-    );
-    pnlFuncionarioLayout.setVerticalGroup(
-        pnlFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFuncionarioLayout.createSequentialGroup()
-            .addGap(21, 21, 21)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
-
-    pnlCards.add(pnlFuncionario, "pnlFunc");
-
-    RelactPanel.setBackground(new java.awt.Color(204, 255, 204));
-
-    jPanel9.setBackground(new java.awt.Color(204, 255, 204));
-
-    txtTurno.setBackground(new java.awt.Color(204, 255, 204));
-    txtTurno.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-    txtTurno.setText("Descrição do Turno");
-    txtTurno.setBorder(null);
-    txtTurno.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            txtTurnoFocusGained(evt);
-        }
-        public void focusLost(java.awt.event.FocusEvent evt) {
-            txtTurnoFocusLost(evt);
-        }
-    });
-
-    jSeparator17.setBackground(new java.awt.Color(255, 255, 255));
-
-    tblTurno.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-            {null},
-            {null},
-            {null},
-            {null}
-        },
-        new String [] {
-            "Descrição"
-        }
-    )
-    {
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    }
     );
     tblTurno.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -620,74 +309,21 @@ public class GHome extends javax.swing.JFrame {
     });
     jScrollPane6.setViewportView(tblTurno);
 
-    btnCadTurno.setBackground(new java.awt.Color(204, 255, 204));
-    btnCadTurno.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-    btnCadTurno.setText("Cadastrar");
-    btnCadTurno.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
-    btnCadTurno.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnCadTurnoMouseClicked(evt);
-        }
-    });
-
-    btnEdTurno.setBackground(new java.awt.Color(204, 255, 204));
-    btnEdTurno.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-    btnEdTurno.setText("Editar");
-    btnEdTurno.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
-    btnEdTurno.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnEdTurnoMouseClicked(evt);
-        }
-    });
-
-    btnExTurno.setBackground(new java.awt.Color(204, 255, 204));
-    btnExTurno.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-    btnExTurno.setText("Excluir");
-    btnExTurno.setBorder(new com.formdev.flatlaf.ui.FlatBorder());
-    btnExTurno.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnExTurnoMouseClicked(evt);
-        }
-    });
-
     javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
     jPanel9.setLayout(jPanel9Layout);
     jPanel9Layout.setHorizontalGroup(
         jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel9Layout.createSequentialGroup()
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addGap(171, 171, 171)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                        .addComponent(jSeparator17)))
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addGap(69, 69, 69)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addGap(97, 97, 97)
-                    .addComponent(btnCadTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnEdTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnExTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(91, Short.MAX_VALUE))
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addContainerGap(15, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())
     );
     jPanel9Layout.setVerticalGroup(
         jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel9Layout.createSequentialGroup()
-            .addGap(24, 24, 24)
-            .addComponent(txtTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btnCadTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnEdTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnExTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(14, 14, 14)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(34, Short.MAX_VALUE))
+            .addContainerGap()
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(17, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout RelactPanelLayout = new javax.swing.GroupLayout(RelactPanel);
@@ -695,16 +331,16 @@ public class GHome extends javax.swing.JFrame {
     RelactPanelLayout.setHorizontalGroup(
         RelactPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(RelactPanelLayout.createSequentialGroup()
-            .addGap(23, 23, 23)
+            .addContainerGap()
             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(42, Short.MAX_VALUE))
+            .addContainerGap(40, Short.MAX_VALUE))
     );
     RelactPanelLayout.setVerticalGroup(
         RelactPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(RelactPanelLayout.createSequentialGroup()
-            .addGap(165, 165, 165)
+            .addGap(37, 37, 37)
             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(136, Short.MAX_VALUE))
+            .addContainerGap(391, Short.MAX_VALUE))
     );
 
     pnlCards.add(RelactPanel, "TurnoPanel");
@@ -829,7 +465,7 @@ public class GHome extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -854,18 +490,18 @@ public class GHome extends javax.swing.JFrame {
 
     private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
         // TODO add your handling code here:
-        cardLayout.show(pnlCards, "TurnoPanel");
+        cardLayout.show(pnlCards, "RelactPanel");
         imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
-        tbModelT = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-
-            }
-        };
-
-        new TurnoController().CarregarTabela(tbModelT, tblTurno);
+//        tbModelT = new DefaultTableModel() {
+//
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return false;
+//
+//            }
+//        };
+//
+//        new TurnoController().CarregarTabela(tbModelT, tblTurno);
     }//GEN-LAST:event_jLabel20MouseClicked
 
     private void jLabel20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MousePressed
@@ -878,18 +514,18 @@ public class GHome extends javax.swing.JFrame {
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
-        cardLayout.show(pnlCards, "FuncaoPanel");
+        cardLayout.show(pnlCards, "HomePanel");
         imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
-        tbModelFunc = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-
-            }
-        };
-
-        new FuncaoController().CarregarTabela(tbModelFunc, tblFuncao);
+//        tbModelFunc = new DefaultTableModel() {
+//
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return false;
+//
+//            }
+//        };
+//
+//        new FuncaoController().CarregarTabela(tbModelFunc, tblFuncao);
     }//GEN-LAST:event_jLabel21MouseClicked
 
     private void jLabel21MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MousePressed
@@ -900,218 +536,23 @@ public class GHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel21MouseReleased
 
-    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
-        txtNome.setText("");
-    }//GEN-LAST:event_txtNomeFocusGained
-
-    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
-        if (txtNome.getText().equals("")) {
-            txtNome.setText("Nome");
-        }
-    }//GEN-LAST:event_txtNomeFocusLost
-
-    private void txtEnderecoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEnderecoFocusGained
-        // TODO add your handling code here:
-        txtEndereco.setText("");
-    }//GEN-LAST:event_txtEnderecoFocusGained
-
-    private void txtDataNascFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataNascFocusGained
-        // TODO add your handling code here:
-        txtDataNasc.setText("");
-    }//GEN-LAST:event_txtDataNascFocusGained
-
-    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataNascActionPerformed
-
-    private void txtDataAdmissaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataAdmissaoFocusGained
-        // TODO add your handling code here:
-        txtDataAdmissao.setText("");
-    }//GEN-LAST:event_txtDataAdmissaoFocusGained
-
-    private void txtDataAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataAdmissaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataAdmissaoActionPerformed
-
-    private void txtEstadoCivilFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEstadoCivilFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoCivilFocusGained
-
-    private void txtNumBIFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumBIFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumBIFocusGained
-
-    private void btnCadFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadFuncionarioMouseClicked
-        // TODO add your handling code here:
-
-        try {
-            //            tbModelF = (DefaultTableModel) tblFuncionario.getModel();
-            f = new Funcionario();
-            fController = new FuncionarioController();
-            user = new Usuario();
-            userPK = new UsuarioPK();
-            UController = new UsuarioController();
-            funcao = new Funcao();
-            funcController = new FuncaoController();
-
-            f.setNumBI(txtNumBI.getText());
-            f.setNome(txtNome.getText());
-            f.setDataAdimissao(txtDataAdmissao.getText());
-            f.setDataNasc(txtDataNasc.getText());
-            f.setEndereco(txtEndereco.getText());
-            f.setEstadoCivil(txtEstadoCivil.getText());
-            if (rdbM.isSelected()) {
-                f.setSexo("M");
-                rdbF.setSelected(false);
-            }else if(rdbF.isSelected()){
-                rdbM.setSelected(false);
-                f.setSexo("F");
-            }else{}
-
-            funcao.setFuncao(FuncaoCombo.getSelectedItem().toString());
-            funcao.setIdFuncao(funcController.FindId(funcao));
-            f.setIdFuncao(funcao);
-            fController.Inserir(f, user, userPK);
-
-            if (UController.findAll().isEmpty()) {
-                user.setTipo((short) 1);
-            } else {
-                user.setTipo((short) 0);
-            }
-            UController.Inserir(user);
-
-            JOptionPane.showMessageDialog(null, "Cadastrado Com Sucesso");
-            tbModelF = new DefaultTableModel() {
-
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-
-                }
-            };
-            fController.CarregarTabela(tbModelF, tblFuncionario);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            txtDataAdmissao.setText("Data de Admissão");
-            txtDataNasc.setText("Data de Nascimento");
-            txtEndereco.setText("Endereço");
-            txtEstadoCivil.setText("Estado Civil");
-            txtNome.setText("Nome Completo");
-        }
-    }//GEN-LAST:event_btnCadFuncionarioMouseClicked
-
-    private void rdbMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbMMouseClicked
-        // TODO add your handling code here:
-        rdbF.setSelected(false);
-    }//GEN-LAST:event_rdbMMouseClicked
-
-    private void rdbFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbFMouseClicked
-        // TODO add your handling code here:
-
-        rdbM.setSelected(false);
-    }//GEN-LAST:event_rdbFMouseClicked
-
-    private void txtTurnoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTurnoFocusGained
-        // TODO add your handling code here:
-        if (edit == false) {
-            txtTurno.setText("");
-            Clicado = true;
-
-        }
-    }//GEN-LAST:event_txtTurnoFocusGained
-
-    private void txtTurnoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTurnoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTurnoFocusLost
-
     private void tblTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTurnoMouseClicked
         // TODO add your handling code here:
-        btnExTurno.setEnabled(true);
-        int j = tblTurno.getSelectedRow();
-        turno = tbModelT.getValueAt(j, 0).toString();
-
-        btnEdTurno.setEnabled(false);
-        if (evt.getClickCount() == 2) {
-            edit = true;
-            int i = tblTurno.getSelectedRow();
-            txtTurno.setText(tbModelT.getValueAt(i, 0).toString());
-            btnEdTurno.setEnabled(true);
-            btnCadTurno.setEnabled(false);
-            turno = txtTurno.getText();
-            btnExTurno.setEnabled(false);
-        }
+//        btnExTurno.setEnabled(true);
+//        int j = tblTurno.getSelectedRow();
+//        turno = tbModelT.getValueAt(j, 0).toString();
+//
+//        btnEdTurno.setEnabled(false);
+//        if (evt.getClickCount() == 2) {
+//            edit = true;
+//            int i = tblTurno.getSelectedRow();
+//            txtTurno.setText(tbModelT.getValueAt(i, 0).toString());
+//            btnEdTurno.setEnabled(true);
+//            btnCadTurno.setEnabled(false);
+//            turno = txtTurno.getText();
+//            btnExTurno.setEnabled(false);
+//        }
     }//GEN-LAST:event_tblTurnoMouseClicked
-
-    private void btnCadTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadTurnoMouseClicked
-        // TODO add your handling code here:
-
-        if (Clicado) {
-            var t = new Turno();
-            var tController = new TurnoController();
-            for (int i = 0; i < tController.findAll().size(); i++) {
-                if (tController.findAll().get(i).getTurno() == txtTurno.getText()) {
-                    JOptionPane.showMessageDialog(null, "Já Existe essa informação no Sistema");
-                    break;
-                }
-            }
-
-            t.setTurno(txtTurno.getText());
-            tController.Inserir(t);
-            JOptionPane.showMessageDialog(null, "Cadastrado Com sucesso");
-            Clicado = false;
-            tController.CarregarTabela(tbModelT, tblTurno);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Escreva a Descrição Da Função");
-        }
-    }//GEN-LAST:event_btnCadTurnoMouseClicked
-
-    private void btnEdTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEdTurnoMouseClicked
-        // TODO add your handling code here:
-
-        var t = new Turno();
-        var tController = new TurnoController();
-        t.setIdTurno(tController.FindId(turno));
-        t.setTurno(txtTurno.getText());
-        tController.Actualizar(t);
-        JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
-        Clicado = false;
-
-        tbModelT = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-
-            }
-        };
-        tController.CarregarTabela(tbModelT, tblTurno);
-        btnEdTurno.setEnabled(false);
-    }//GEN-LAST:event_btnEdTurnoMouseClicked
-
-    private void btnExTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExTurnoMouseClicked
-        // TODO add your handling code here:
-        var t = new Turno();
-        var tController = new TurnoController();
-        t.setIdTurno(tController.FindId(turno));
-        tController.Delete(t.getIdTurno());
-        JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
-        Clicado = false;
-
-        tbModelT = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-
-            }
-        };
-        tController.CarregarTabela(tbModelT, tblTurno);
-        btnExTurno.setEnabled(false);
-        btnCadTurno.setEnabled(true);
-    }//GEN-LAST:event_btnExTurnoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1149,17 +590,10 @@ public class GHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> FuncaoCombo;
     private javax.swing.JPanel HomePanel;
     private javax.swing.JPanel RelactPanel;
     private javax.swing.JPanel btnBloco;
-    private javax.swing.JButton btnCadFuncionario;
-    private javax.swing.JButton btnCadTurno;
     private javax.swing.JPanel btnCela;
-    private javax.swing.JButton btnEdFuncionario;
-    private javax.swing.JButton btnEdTurno;
-    private javax.swing.JButton btnExFuncionario;
-    private javax.swing.JButton btnExTurno;
     private javax.swing.JPanel btnFunc;
     private javax.swing.JPanel btnFuncao;
     private javax.swing.JPanel btnSair;
@@ -1171,21 +605,10 @@ public class GHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator17;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblNomeG;
     private javax.swing.JLabel lblNomeG1;
@@ -1195,18 +618,7 @@ public class GHome extends javax.swing.JFrame {
     private javax.swing.JLabel letterLabel4;
     private javax.swing.JLabel letterLabel6;
     private javax.swing.JPanel pnlCards;
-    private javax.swing.JPanel pnlFuncionario;
-    private javax.swing.JRadioButton rdbF;
-    private javax.swing.JRadioButton rdbM;
-    private javax.swing.JTable tblFuncionario;
     private javax.swing.JTable tblFuncionario1;
     private javax.swing.JTable tblTurno;
-    private javax.swing.JTextField txtDataAdmissao;
-    private javax.swing.JTextField txtDataNasc;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtEstadoCivil;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtNumBI;
-    private javax.swing.JTextField txtTurno;
     // End of variables declaration//GEN-END:variables
 }
