@@ -1914,32 +1914,34 @@ public class AdminHome extends javax.swing.JFrame {
 
     private void btnCadBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadBlocoMouseClicked
         // TODO add your handling code here:
+        if (btnCadBloco.isEnabled()) {
+            try {
+                bloco = new Bloco();
+                bController = new BlocoController();
 
-        try {
-            bloco = new Bloco();
-            bController = new BlocoController();
+                bloco.setDescricao(txtBloco.getText());
+                bController.Inserir(bloco);
+                JOptionPane.showMessageDialog(null, "Bloco Cadastrado Com Sucesso");
+                bController.CarregarTabela(tbModelB, tblBloco);
 
-            bloco.setDescricao(txtBloco.getText());
-            bController.Inserir(bloco);
-            JOptionPane.showMessageDialog(null, "Bloco Cadastrado Com Sucesso");
-            bController.CarregarTabela(tbModelB, tblBloco);
+                CarregarCombo();
+                tbModelB = new DefaultTableModel() {
 
-            CarregarCombo();
-            tbModelB = new DefaultTableModel() {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
 
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
+                    }
+                };
+                new BlocoController().CarregarTabela(tbModelB, tblBloco);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                txtBloco.setText("Descrição Do Bloco");
 
-                }
-            };
-            new BlocoController().CarregarTabela(tbModelB, tblBloco);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            txtBloco.setText("Descrição Do Bloco");
-
+            }
         }
+
     }//GEN-LAST:event_btnCadBlocoMouseClicked
 
     private void btnCadCelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadCelaMouseClicked
@@ -1981,63 +1983,67 @@ public class AdminHome extends javax.swing.JFrame {
     private void btnCadFuncaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadFuncaoMouseClicked
         // TODO add your handling code here:
 
-        if (Clicado) {
-            funcController = new FuncaoController();
-            funcao = new Funcao();
+        if (btnCadFuncao.isEnabled()) {
+            if (Clicado) {
+                funcController = new FuncaoController();
+                funcao = new Funcao();
 
-            funcao.setFuncao(txtFuncao.getText());
-            funcController.Inserir(funcao);
-            JOptionPane.showMessageDialog(null, "Cadastrado Com sucesso");
-            Clicado = false;
+                funcao.setFuncao(txtFuncao.getText());
+                funcController.Inserir(funcao);
+                JOptionPane.showMessageDialog(null, "Cadastrado Com sucesso");
+                Clicado = false;
 
-            tbModelFunc = new DefaultTableModel() {
+                tbModelFunc = new DefaultTableModel() {
 
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
 
-                }
-            };
+                    }
+                };
 
-            funcController.CarregarTabela(tbModelFunc, tblFuncao);
-            CarregarComboFuncao();
+                funcController.CarregarTabela(tbModelFunc, tblFuncao);
+                CarregarComboFuncao();
 
-        } else {
-            JOptionPane.showMessageDialog(null, "Escreva a Descrição Da Função");
+            } else {
+                JOptionPane.showMessageDialog(null, "Escreva a Descrição Da Função");
+            }
         }
     }//GEN-LAST:event_btnCadFuncaoMouseClicked
 
     private void btnCadTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadTurnoMouseClicked
         // TODO add your handling code here:
 
-        if (Clicado) {
-            var t = new Turno();
-            var tController = new TurnoController();
-            for (int i = 0; i < tController.findAll().size(); i++) {
-                if (tController.findAll().get(i).getTurno() == txtTurno.getText()) {
-                    JOptionPane.showMessageDialog(null, "Já Existe essa informação no Sistema");
-                    break;
+        if (btnCadTurno.isEnabled()) {
+            if (Clicado) {
+                var t = new Turno();
+                var tController = new TurnoController();
+                for (int i = 0; i < tController.findAll().size(); i++) {
+                    if (tController.findAll().get(i).getTurno() == txtTurno.getText()) {
+                        JOptionPane.showMessageDialog(null, "Já Existe essa informação no Sistema");
+                        break;
+                    }
                 }
+
+                t.setTurno(txtTurno.getText());
+                tController.Inserir(t);
+                JOptionPane.showMessageDialog(null, "Cadastrado Com sucesso");
+                Clicado = false;
+
+                tbModelT = new DefaultTableModel() {
+
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
+
+                    }
+                };
+
+                tController.CarregarTabela(tbModelT, tblTurno);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Escreva a Descrição Da Função");
             }
-
-            t.setTurno(txtTurno.getText());
-            tController.Inserir(t);
-            JOptionPane.showMessageDialog(null, "Cadastrado Com sucesso");
-            Clicado = false;
-
-            tbModelT = new DefaultTableModel() {
-
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;
-
-                }
-            };
-
-            tController.CarregarTabela(tbModelT, tblTurno);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Escreva a Descrição Da Função");
         }
     }//GEN-LAST:event_btnCadTurnoMouseClicked
     private static String turno;
@@ -2062,44 +2068,48 @@ public class AdminHome extends javax.swing.JFrame {
     private void btnEdTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEdTurnoMouseClicked
         // TODO add your handling code here:
 
-        var t = new Turno();
-        var tController = new TurnoController();
-        t.setIdTurno(tController.FindId(turno));
-        t.setTurno(txtTurno.getText());
-        tController.Actualizar(t);
-        JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
-        Clicado = false;
+        if (btnEdTurno.isEnabled()) {
+            var t = new Turno();
+            var tController = new TurnoController();
+            t.setIdTurno(tController.FindId(turno));
+            t.setTurno(txtTurno.getText());
+            tController.Actualizar(t);
+            JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
+            Clicado = false;
 
-        tbModelT = new DefaultTableModel() {
+            tbModelT = new DefaultTableModel() {
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
 
-            }
-        };
-        tController.CarregarTabela(tbModelT, tblTurno);
+                }
+            };
+            tController.CarregarTabela(tbModelT, tblTurno);
+        }
         btnEdTurno.setEnabled(false);
     }//GEN-LAST:event_btnEdTurnoMouseClicked
 
     private void btnExTurnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExTurnoMouseClicked
         // TODO add your handling code here:
-        var t = new Turno();
-        var tController = new TurnoController();
-        t.setIdTurno(tController.FindId(turno));
-        tController.Delete(t.getIdTurno());
-        JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
-        Clicado = false;
+        if (btnExTurno.isEnabled()) {
+            var t = new Turno();
+            var tController = new TurnoController();
+            t.setIdTurno(tController.FindId(turno));
+            tController.Delete(t.getIdTurno());
+            JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
+            Clicado = false;
 
-        tbModelT = new DefaultTableModel() {
+            tbModelT = new DefaultTableModel() {
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
 
-            }
-        };
-        tController.CarregarTabela(tbModelT, tblTurno);
+                }
+            };
+            tController.CarregarTabela(tbModelT, tblTurno);
+        }
         btnExTurno.setEnabled(false);
         btnCadTurno.setEnabled(true);
 
@@ -2130,47 +2140,51 @@ public class AdminHome extends javax.swing.JFrame {
 
     private void btnEditFuncaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditFuncaoMouseClicked
         // TODO add your handling code here:
-        var f = new Funcao();
-        var fuController = new FuncaoController();
-        f.setFuncao(func);
-        f.setIdFuncao(fuController.FindId(f));
-        f.setFuncao(txtTurno.getText());
-        fController.Actualizar(f);
-        JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
-        Clicado = false;
+        if (btnEditFuncao.isEnabled()) {
+            var f = new Funcao();
+            var fuController = new FuncaoController();
+            f.setFuncao(func);
+            f.setIdFuncao(fuController.FindId(f));
+            f.setFuncao(txtTurno.getText());
+            fController.Actualizar(f);
+            JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
+            Clicado = false;
 
-        tbModelFunc = new DefaultTableModel() {
+            tbModelFunc = new DefaultTableModel() {
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
 
-            }
-        };
-        fController.CarregarTabela(tbModelFunc, tblFuncao);
+                }
+            };
+            fController.CarregarTabela(tbModelFunc, tblFuncao);
+        }
         btnEditFuncao.setEnabled(false);
 
     }//GEN-LAST:event_btnEditFuncaoMouseClicked
 
     private void btnExFuncaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExFuncaoMouseClicked
         // TODO add your handling code here:
-        var f = new Funcao();
-        var fuController = new FuncaoController();
-        f.setFuncao(func);
-        f.setIdFuncao(fuController.FindId(f));
-        fController.Delete(f.getIdFuncao());
-        JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
-        Clicado = false;
+        if (btnExFuncao.isEnabled()) {
+            var f = new Funcao();
+            var fuController = new FuncaoController();
+            f.setFuncao(func);
+            f.setIdFuncao(fuController.FindId(f));
+            fController.Delete(f.getIdFuncao());
+            JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
+            Clicado = false;
 
-        tbModelFunc = new DefaultTableModel() {
+            tbModelFunc = new DefaultTableModel() {
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
 
-            }
-        };
-        fController.CarregarTabela(tbModelFunc, tblFuncao);
+                }
+            };
+            fController.CarregarTabela(tbModelFunc, tblFuncao);
+        }
         btnExFuncao.setEnabled(false);
         btnCadFuncao.setEnabled(true);
 
@@ -2186,7 +2200,7 @@ public class AdminHome extends javax.swing.JFrame {
 
         rdbM.setSelected(false);
     }//GEN-LAST:event_rdbFMouseClicked
-private static String bloc = "";
+    private static String bloc = "";
     private void tblBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBlocoMouseClicked
         // TODO add your handling code here:
         btnExBloco.setEnabled(true);
@@ -2207,50 +2221,54 @@ private static String bloc = "";
 
     private void btnEdBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEdBlocoMouseClicked
         // TODO add your handling code here:
-        
-        var b = new Bloco();
-        var bController = new BlocoController();
-        b.setDescricao(bloc);
-        b.setIdBloco(bController.FindId(b));
-        b.setDescricao(txtBloco.getText());
-        bController.Actualizar(b);
-        JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
-        Clicado = false;
 
-        tbModelB = new DefaultTableModel() {
+        if (btnEdBloco.isEnabled()) {
+            var b = new Bloco();
+            var bController = new BlocoController();
+            b.setDescricao(bloc);
+            b.setIdBloco(bController.FindId(b));
+            b.setDescricao(txtBloco.getText());
+            bController.Actualizar(b);
+            JOptionPane.showMessageDialog(null, "Alterado Com sucesso");
+            Clicado = false;
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            tbModelB = new DefaultTableModel() {
 
-            }
-        };
-        bController.CarregarTabela(tbModelB, tblBloco);
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+            bController.CarregarTabela(tbModelB, tblBloco);
+        }
         btnEdBloco.setEnabled(false);
     }//GEN-LAST:event_btnEdBlocoMouseClicked
 
     private void btnExBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExBlocoMouseClicked
         // TODO add your handling code here:
-        
-        var b = new Bloco();
-        var bController = new BlocoController();
-        b.setDescricao(bloc);
-        b.setIdBloco(bController.FindId(b));
-        bController.Delete(b.getIdBloco());
-        JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
-        Clicado = false;
 
-        tbModelB = new DefaultTableModel() {
+        if (btnExBloco.isEnabled()) {
+            var b = new Bloco();
+            var bController = new BlocoController();
+            b.setDescricao(bloc);
+            b.setIdBloco(bController.FindId(b));
+            bController.Delete(b.getIdBloco());
+            JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
+            Clicado = false;
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            tbModelB = new DefaultTableModel() {
 
-            }
-        };
-        bController.CarregarTabela(tbModelB, tblBloco);
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+            bController.CarregarTabela(tbModelB, tblBloco);
+        }
         btnExBloco.setEnabled(false);
-        btnCadFuncao.setEnabled(true);
+        btnCadBloco.setEnabled(true);
     }//GEN-LAST:event_btnExBlocoMouseClicked
 
     /**
