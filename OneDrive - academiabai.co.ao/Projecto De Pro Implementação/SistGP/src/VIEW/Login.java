@@ -358,7 +358,7 @@ public class Login extends javax.swing.JFrame {
 //        Verificar o tipo de usuario a logar
             switch (uController.Logar(user)) {
                 case 0 -> {
-                    GuardarDataAcesso(user, txtUsuarioNovaSenha.getText(), txtNovaSenha.getText());
+                    uController.GuardarAcessoAdm(user);
                     dispose();
                     new AdminHome().setVisible(true);
                 }
@@ -402,7 +402,7 @@ public class Login extends javax.swing.JFrame {
                 if (uController.find(user).get(0).getAcesso() == null) {
                     cardLayout.show(pnlCards, "NovaSenhaPanel");
                 } else {
-                    GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
+                    uController.GuardarAcessoAdm(user);
                     dispose();
                     new AdminHome().setVisible(true);
                 }
@@ -417,6 +417,9 @@ public class Login extends javax.swing.JFrame {
                 if (uController.find(user).get(0).getAcesso() == null) {
                     cardLayout.show(pnlCards, "NovaSenhaPanel");
                 } else {
+                    String numBI = uController.find(user).get(0).getNumBI().getNumBI();
+                    f.setNumBI(numBI);
+                    user.setNumBI(f);
                     GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
                     dispose();
                     var f = new Funcionario();
@@ -434,6 +437,9 @@ public class Login extends javax.swing.JFrame {
                 if (uController.find(user).get(0).getAcesso() == null) {
                     cardLayout.show(pnlCards, "NovaSenhaPanel");
                 } else {
+                    String numBI = uController.find(user).get(0).getNumBI().getNumBI();
+                    f.setNumBI(numBI);
+                    user.setNumBI(f);
                     GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
                     dispose();
                     var f = new Funcionario();

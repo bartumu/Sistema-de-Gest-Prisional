@@ -1857,18 +1857,18 @@ public class AdminHome extends javax.swing.JFrame {
             if (rdbM.isSelected()) {
                 f.setSexo("M");
                 rdbF.setSelected(false);
-            }else if(rdbF.isSelected()){
+            } else if (rdbF.isSelected()) {
                 rdbM.setSelected(false);
                 f.setSexo("F");
-            }else{}
+            } else {
+            }
 
             funcao.setFuncao(FuncaoCombo.getSelectedItem().toString());
             funcao.setIdFuncao(funcController.FindId(funcao));
             f.setIdFuncao(funcao);
             fController.Inserir(f, user);
 
-            
-            user.setTipo((short) 0);            
+            user.setTipo((short) 0);
             UController.Inserir(user);
 
             JOptionPane.showMessageDialog(null, "Cadastrado Com Sucesso");
@@ -1951,6 +1951,16 @@ public class AdminHome extends javax.swing.JFrame {
             funcController.Inserir(funcao);
             JOptionPane.showMessageDialog(null, "Cadastrado Com sucesso");
             Clicado = false;
+
+            tbModelFunc = new DefaultTableModel() {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+
             funcController.CarregarTabela(tbModelFunc, tblFuncao);
             CarregarComboFuncao();
 
@@ -1976,6 +1986,16 @@ public class AdminHome extends javax.swing.JFrame {
             tController.Inserir(t);
             JOptionPane.showMessageDialog(null, "Cadastrado Com sucesso");
             Clicado = false;
+
+            tbModelT = new DefaultTableModel() {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+
             tController.CarregarTabela(tbModelT, tblTurno);
 
         } else {
@@ -2117,7 +2137,7 @@ public class AdminHome extends javax.swing.JFrame {
         btnCadFuncao.setEnabled(true);
 
     }//GEN-LAST:event_btnExFuncaoMouseClicked
-private boolean c;
+    private boolean c;
     private void rdbMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbMMouseClicked
         // TODO add your handling code here:
         rdbF.setSelected(false);
@@ -2125,7 +2145,7 @@ private boolean c;
 
     private void rdbFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdbFMouseClicked
         // TODO add your handling code here:
-        
+
         rdbM.setSelected(false);
     }//GEN-LAST:event_rdbFMouseClicked
 

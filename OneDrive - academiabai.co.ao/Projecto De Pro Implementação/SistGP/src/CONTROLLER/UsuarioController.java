@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -28,8 +29,8 @@ public class UsuarioController extends CRUDController {
         super.setInserirQuery(String.format("INSERT %s (senha,acesso,numBI,nome,tipo) VALUES (?,null,?,?,?)", this.tabela));
         super.setAtualizarQuery(String.format("UPDATE %s SET senha = ?, acesso = ?, nome = ? WHERE numBI = ?", this.tabela));
         super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
-        super.setSelecionarQuery(String.format("SELECT * FROM %s", this.tabela));
-        super.setSeleccaoPersonalizadoQuery(String.format("SELECT acesso,numBI,tipo FROM %s WHERE senha = ? and nome = ?", this.tabela));
+        super.setSelecionarQuery(String.format("SELECT * FROM %s where numBI <> ''", this.tabela));
+        super.setSeleccaoPersonalizadoQuery(String.format("SELECT acesso,numBI,tipo,idUser FROM %s WHERE senha = ? and nome = ?", this.tabela));
 
     }
 
@@ -139,7 +140,7 @@ public class UsuarioController extends CRUDController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return a;
     }
@@ -159,6 +160,7 @@ public class UsuarioController extends CRUDController {
         var f = new Funcionario();
         u.setTipo(rs.getShort("tipo"));
         u.setAcesso(rs.getString("acesso"));
+        u.setIdUser(rs.getInt("idUser"));
         f.setNumBI(rs.getString("numBI"));
         u.setNumBI(f);
         uLista.add(u);
@@ -196,9 +198,10 @@ public class UsuarioController extends CRUDController {
             stmt.setString(2, u.getSenha());
 
             try ( ResultSet rs = stmt.executeQuery()) {
+                rs.next();
                 if (!rs.isFirst()) {
                 } else {
-                    rs.next();
+                    
                     f.setFuncao(rs.getString(1));
                     u.setTipo(rs.getShort(2));
                 }
@@ -218,17 +221,32 @@ public class UsuarioController extends CRUDController {
 
         tbModel = new DefaultTableModel(columnNames, 0);
         for (int i = 0; i < UController.findAll().size(); i++) {
-
-            Object[] lista = {
-                fController.findAll().get(i).getNumBI(),
-                fController.findAll().get(i).getNome(),
-                UController.Find(fController.findAll().get(i).getNumBI()).get(i).getNome(),
-                UController.Find(fController.findAll().get(i).getNumBI()).get(i).getSenha()
-            };
-
-            tbModel.addRow(lista);
+           
+                Object[] lista1 = {
+                    fController.findAll().get(i).getNumBI(),
+                    fController.findAll().get(i).getNome(),
+                    UController.Find(fController.findAll().get(i).getNumBI()).get(i).getNome(),
+                    UController.Find(fController.findAll().get(i).getNumBI()).get(i).getSenha()
+                };
+                tbModel.addRow(lista1);
         }
         tblUser.setModel(tbModel);
+    }
+
+    public void GuardarAcessoAdm(Usuario u) {
+        this.AbrirConexao();
+        String sql = String.format("UPDATE usuario SET senha = ?, acesso = ?, nome = ? WHERE idUser = ?");
+        try ( PreparedStatement stmt = this.conex.prepareStatement(sql)) {
+            stmt.setString(1, u.getSenha());
+            stmt.setString(2, LocalDateTime.now().toLocalDate().toString());
+            stmt.setString(3, u.getNome());
+            stmt.setInt(4, this.find(u).get(0).getIdUser());
+            stmt.execute();
+            this.FecharConexao();
+        } catch (SQLException ex) {
+            this.FecharConexao();
+            ex.printStackTrace();
+        }
     }
 
 }
