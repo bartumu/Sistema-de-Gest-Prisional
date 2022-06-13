@@ -178,8 +178,7 @@ public class FuncionarioController extends CRUDController {
         }
         tblFuncionario.setModel(tbModelF);
     }
-    
-    
+
     public void Escalar(Funcionario f, Bloco b, Turno t) {
         this.AbrirConexao();
         String sql = String.format("call sistgp.Escalar(?, ?, ?)");
@@ -192,25 +191,25 @@ public class FuncionarioController extends CRUDController {
             this.FecharConexao();
         }
     }
-    
+
     public void CarregarTabelaG(DefaultTableModel tbModelF, JTable tblFuncionario) {
         this.AbrirConexao();
         Object[] lista = new Object[5];
         Object[] columnNames = {"Nº Do BI", "Nome", "Função", "Sexo", "Data De Admissão"};
-        
+
         tbModelF.setColumnIdentifiers(columnNames);
-        
+
         String sql = String.format("SELECT * FROM funcionario as f inner join funcao as fu on fu.`idFuncao` = f.`idFuncao`"
                 + "where  f.idBloco is null");
         try ( Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
             try ( ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {
-                    lista [0] = (rs.getString("numBI"));
-                    lista [1] =(rs.getString("nome"));
-                    lista [2] =(rs.getString("funcao"));
-                    lista [3] =(rs.getString("sexo"));
-                    lista [4] =(rs.getDate("dataAdimissao").toString());
+                    lista[0] = (rs.getString("numBI"));
+                    lista[1] = (rs.getString("nome"));
+                    lista[2] = (rs.getString("funcao"));
+                    lista[3] = (rs.getString("sexo"));
+                    lista[4] = (rs.getDate("dataAdimissao").toString());
                     tbModelF.addRow(lista);
                 }
                 tblFuncionario.setModel(tbModelF);
@@ -220,31 +219,31 @@ public class FuncionarioController extends CRUDController {
             this.FecharConexao();
         }
     }
-    
+
     public void CarregarTabelaG1(DefaultTableModel tbModelF, JTable tblFuncionario) {
         this.AbrirConexao();
         Object[] lista = new Object[5];
-        Object[] columnNames = {"Nº Do BI", "Nome", "Função", "Sexo", "Data De Admissão"};
-        
+        Object[] columnNames = {"Nº Do BI", "Nome", "Função", "Bloco", "Turno"};
+
         tbModelF.setColumnIdentifiers(columnNames);
-        
-        String sql = String.format("SELECT * FROM funcionario as f inner join funcao as fu on fu.`idFuncao` = f.`idFuncao`"
-                + "where  f.idBloco is not null");
+
+        String sql = String.format("call sistgp.FuncEscalados()");
         try ( Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
             try ( ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {
-                    lista [0] = (rs.getString("numBI"));
-                    lista [1] =(rs.getString("nome"));
-                    lista [2] =(rs.getString("funcao"));
-                    lista [3] =(rs.getString("sexo"));
-                    lista [4] =(rs.getDate("dataAdimissao").toString());
+                    lista[0] = (rs.getString("numBI"));
+                    lista[1] = (rs.getString("nome"));
+                    lista[2] = (rs.getString("funcao"));
+                    lista[3] = (rs.getString("descricao"));
+                    lista[4] = (rs.getString("turno"));
                     tbModelF.addRow(lista);
                 }
                 tblFuncionario.setModel(tbModelF);
             }
 
         } catch (SQLException ex) {
+            ex.printStackTrace();
             this.FecharConexao();
         }
     }

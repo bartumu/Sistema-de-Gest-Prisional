@@ -1790,11 +1790,6 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="imgLabel1">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Melhor De Mim\OneDrive - academiabai.co.ao\Projecto De Pro Implementa&#xe7;&#xe3;o\img\Icons-Bencao-04.png"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="letterLabel2">
                   <Properties>

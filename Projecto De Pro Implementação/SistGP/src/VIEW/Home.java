@@ -1382,6 +1382,24 @@ public class Home extends javax.swing.JFrame {
         cardLayout.show(pnlCards, "GuardPanel");
         CarregarCombo(bController);
         CarregarCombo(tController);
+        tbModelF = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+
+        tbModelF1 = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+
         fController.CarregarTabelaG(tbModelF, tblGuarda);
         fController.CarregarTabelaG1(tbModelF1, tblGuardaEdit);
 
@@ -1680,6 +1698,7 @@ public class Home extends javax.swing.JFrame {
 
                 }
             };
+
             tbModelF1 = new DefaultTableModel() {
 
                 @Override
@@ -1688,7 +1707,7 @@ public class Home extends javax.swing.JFrame {
 
                 }
             };
-            
+
             fController.CarregarTabelaG(tbModelF, tblGuarda);
             fController.CarregarTabelaG1(tbModelF1, tblGuardaEdit);
             txtNomeGuarda.setText("Nome");
