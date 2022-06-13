@@ -29,7 +29,7 @@ public class UsuarioController extends CRUDController {
         super.setInserirQuery(String.format("INSERT %s (senha,acesso,numBI,nome,tipo) VALUES (?,null,?,?,?)", this.tabela));
         super.setAtualizarQuery(String.format("UPDATE %s SET senha = ?, acesso = ?, nome = ? WHERE numBI = ?", this.tabela));
         super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
-        super.setSelecionarQuery(String.format("SELECT * FROM %s", this.tabela));
+        super.setSelecionarQuery(String.format("SELECT * FROM %s where tipo = 0", this.tabela));
         super.setSeleccaoPersonalizadoQuery(String.format("SELECT acesso,numBI,tipo,idUser FROM %s WHERE senha = ? and nome = ?", this.tabela));
 
     }
@@ -226,8 +226,8 @@ public class UsuarioController extends CRUDController {
             Object[] lista1 = {
                 fController.findAll().get(i).getNumBI(),
                 fController.findAll().get(i).getNome(),
-                UController.Find(fController.findAll().get(i).getNumBI()).get(i).getNome(),
-                UController.Find(fController.findAll().get(i).getNumBI()).get(i).getSenha()
+                UController.findAll().get(i).getNome(),
+                UController.findAll().get(i).getSenha()
             };
             tbModel.addRow(lista1);
         }

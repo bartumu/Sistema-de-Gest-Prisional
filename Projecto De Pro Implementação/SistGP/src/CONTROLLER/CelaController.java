@@ -25,7 +25,7 @@ public class CelaController extends CRUDController {
         super.setInserirQuery(String.format("INSERT INTO %s (descricao, idBloco, tipo) values (?,?,?)", this.tabela));
         super.setAtualizarQuery(String.format("UPDATE %s SET descricao = ?, tipo = ? WHERE idBloco = ?", this.tabela));
         super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
-        super.setSelecionarQuery(String.format("SELECT c.*, b.descricao as Bloco FROM %s as c join bloco as b on (b.idBloco = c.idBloco)", this.tabela));
+        super.setSelecionarQuery(String.format("call sistgp.AllCelas()"));
 //        super.setSelecionarQuery(String.format("SELECT b.descricao FROM %s as c join bloco on (b.idBloco = c.idBloco)", this.tabela));
     }
 
@@ -55,9 +55,9 @@ public class CelaController extends CRUDController {
                 celaPK.setDescricao(rs.getString("descricao"));
                 celaPK.setIdBloco(rs.getInt("idBloco"));
                 c.setCelaPK(celaPK);
-                b.setDescricao(rs.getString("Bloco"));
+                b.setDescricao(rs.getString("tipo"));
                 c.setBloco(b);
-                c.setTipo(rs.getString("tipo"));
+                c.setTipo(rs.getString("descricao"));
                 cLista.add(c);
             }
             System.out.println("");

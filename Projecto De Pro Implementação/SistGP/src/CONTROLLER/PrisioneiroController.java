@@ -147,8 +147,6 @@ public class PrisioneiroController extends CRUDController {
     public ArrayList<Prisioneiro> Find(String id) {
         return super.Find(id); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-    
-    
 
     @Override
     public void Delete(int id) {
@@ -221,11 +219,11 @@ public class PrisioneiroController extends CRUDController {
         try ( java.sql.Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
             try ( ResultSet rs = stmt.executeQuery(sql)) {
-                 while (rs.next()) {                    
-                    Object[] a = { rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)}; 
-                    b=a;
-                 }
-                 return b;
+                while (rs.next()) {
+                    Object[] a = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)};
+                    b = a;
+                }
+                return b;
             }
 
         } catch (SQLException ex) {
@@ -234,12 +232,13 @@ public class PrisioneiroController extends CRUDController {
             return null;
         }
     }
-    
-    public void CarregarRelact(Prisioneiro p, Crime crime, CelaPK c, Bloco b, EJulgado ej, JulgamentoPK j, Esquadra esq){
-    this.AbrirConexao();
-        String sql = String.format("call RelactorioPris(?)");
-        try ( PreparedStatement stmt = this.conex.prepareStatement(sql)) {
-            stmt.setString(1, p.getNumBI());
+
+    public void CarregarRelact(Prisioneiro p, Crime crime, CelaPK c, Bloco b, EJulgado ej, JulgamentoPK j, Esquadra esq) {
+        this.AbrirConexao();
+        String sql = String.format("call RelactorioPris('%s')", p.getNome());
+        try ( java.sql.Statement stmt = this.conex.createStatement()) {
+            stmt.execute(sql);
+//            stmt.setString(1, p.getNumBI());
             try ( ResultSet rs = stmt.executeQuery(sql)) {
                 rs.next();
                 p.setNome(rs.getString(1));

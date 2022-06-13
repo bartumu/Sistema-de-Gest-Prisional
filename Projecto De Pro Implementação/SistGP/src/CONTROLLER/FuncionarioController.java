@@ -247,5 +247,16 @@ public class FuncionarioController extends CRUDController {
             this.FecharConexao();
         }
     }
+    
+    public void LiberarEscala(Funcionario f){
+        this.AbrirConexao();
+        String sql = String.format("update funcionario set idBloco = null, idTurno = null where numBI = ?");
+        try ( PreparedStatement stmt = this.conex.prepareStatement(sql)) {
+            stmt.setString(1, f.getNumBI());
+            stmt.execute();
+        } catch (SQLException ex) {
+            this.FecharConexao();
+        }
+    }
 
 }

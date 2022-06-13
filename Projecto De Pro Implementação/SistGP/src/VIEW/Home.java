@@ -1148,6 +1148,11 @@ public class Home extends javax.swing.JFrame {
                 btnGuardaLiberarMouseClicked(evt);
             }
         });
+        btnGuardaLiberar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardaLiberarActionPerformed(evt);
+            }
+        });
 
         FuncBlocoCombo.setBackground(new java.awt.Color(204, 255, 204));
         FuncBlocoCombo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -1165,6 +1170,11 @@ public class Home extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblGuardaEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGuardaEditMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tblGuardaEdit);
 
         jSeparator21.setBackground(new java.awt.Color(255, 255, 255));
@@ -1247,8 +1257,6 @@ public class Home extends javax.swing.JFrame {
         pnlCards.add(GuardPanel, "GuardPanel");
 
         HomePanel.setBackground(new java.awt.Color(204, 255, 204));
-
-        imgLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\img\\Icons-Bencao-04.png")); // NOI18N
 
         letterLabel2.setFont(new java.awt.Font("SimSun", 1, 24)); // NOI18N
         letterLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1624,7 +1632,7 @@ public class Home extends javax.swing.JFrame {
             var b = new Bloco();
             var ej = new EJulgado();
             var esq = new Esquadra();
-            pris.setNumBI(tbModelPris.getValueAt(j, 0).toString());
+            pris.setNome(tbModelPris.getValueAt(j, 1).toString());
             var pController = new PrisioneiroController();
             pController.CarregarRelact(pris, Cr, c, b, ej, jPK, esq);
 
@@ -1676,6 +1684,8 @@ public class Home extends javax.swing.JFrame {
 
     private void tblGuardaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGuardaMouseClicked
         // TODO add your handling code here:
+        btnEdTurno.setEnabled(true);
+        btnGuardaLiberar.setEnabled(false);
         if (evt.getClickCount() == 2) {
             int k = tblGuarda.getSelectedRow();
             f.setNumBI(tbModelF.getValueAt(k, 0).toString());
@@ -1713,6 +1723,43 @@ public class Home extends javax.swing.JFrame {
             txtNomeGuarda.setText("Nome");
         }
     }//GEN-LAST:event_btnEdTurnoActionPerformed
+
+    private void tblGuardaEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGuardaEditMouseClicked
+        // TODO add your handling code here:
+        btnGuardaLiberar.setEnabled(true);
+        btnEdTurno.setEnabled(false);
+    }//GEN-LAST:event_tblGuardaEditMouseClicked
+
+    private void btnGuardaLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaLiberarActionPerformed
+        // TODO add your handling code here:
+        if (btnGuardaLiberar.isEnabled()) {
+            int k = tblGuardaEdit.getSelectedRow();
+            f.setNumBI(tbModelF1.getValueAt(k, 0).toString());
+            var fController = new FuncionarioController();
+            fController.LiberarEscala(f);
+            
+            tbModelF = new DefaultTableModel() {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+
+            tbModelF1 = new DefaultTableModel() {
+
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+
+                }
+            };
+
+            fController.CarregarTabelaG(tbModelF, tblGuarda);
+            fController.CarregarTabelaG1(tbModelF1, tblGuardaEdit);
+        }
+    }//GEN-LAST:event_btnGuardaLiberarActionPerformed
 
     /**
      * @param args the command line arguments
