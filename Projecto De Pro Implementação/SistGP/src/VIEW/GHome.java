@@ -18,6 +18,7 @@ import MODEL.JulgamentoPK;
 import MODEL.Prisioneiro;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,14 +33,18 @@ public class GHome extends javax.swing.JFrame {
      */
     Color defaultColor, ClickedColor, inDefaultColor, inClickedColor;
     CardLayout cardLayout;
-    
+
     DefaultTableModel tbModelPris;
     PrisioneiroController prisController;
     CelaController cController = new CelaController();
 
+    public GHome() throws HeadlessException {
+    }
+
     public GHome(Funcionario f) {
         initComponents();
-        System.out.println(f.getNome());
+        lblTurnoG.setText(f.getIdTurno().getTurno());
+        lblNomeG.setText(f.getNome());
 
         defaultColor = new Color(60, 179, 113);
         ClickedColor = new Color(204, 255, 204);
@@ -50,8 +55,8 @@ public class GHome extends javax.swing.JFrame {
         cardLayout.show(pnlCards, "HomePanel");
         imgLabel.setIcon(new javax.swing.ImageIcon(""));
     }
-    
-     private void CarregarTabelaPris(JTable a) {
+
+    private void CarregarTabelaPris(JTable a) {
         Object[] columnNames = {"Nº Do BI", "Nome", "Sexo", "Crime", "Cela", "Pena"};
         var criController = new CrimeController();
         var ejController = new EJulgadoController();

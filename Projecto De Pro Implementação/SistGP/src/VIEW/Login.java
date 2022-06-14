@@ -8,6 +8,7 @@ import CONTROLLER.UsuarioController;
 import MODEL.Bloco;
 import MODEL.Funcao;
 import MODEL.Funcionario;
+import MODEL.Turno;
 import MODEL.Usuario;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -33,7 +34,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-
+//        lblimg.setIcon(new javax.swing.ImageIcon(""));
         cardLayout = (CardLayout) (pnlCards.getLayout());
         cardLayout.show(pnlCards, "SenhaPanel");
         defaultColor = new Color(204, 255, 204);
@@ -53,7 +54,7 @@ public class Login extends javax.swing.JFrame {
         LoginConf = new javax.swing.JFrame();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblimg = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         pnlCards = new javax.swing.JPanel();
         NovaSenhaPanel = new javax.swing.JPanel();
@@ -93,10 +94,11 @@ public class Login extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(519, 332));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(519, 332));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(60, 179, 113));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\img\\Icons-Bencao-04.png")); // NOI18N
+        lblimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("SimSun", 1, 24)); // NOI18N
         jLabel3.setText("S I S T G P");
@@ -109,7 +111,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(jLabel2))
+                        .addComponent(lblimg))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jLabel3)))
@@ -119,7 +121,7 @@ public class Login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblimg, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addContainerGap(300, Short.MAX_VALUE))
@@ -373,8 +375,14 @@ public class Login extends javax.swing.JFrame {
                     GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
                     dispose();
                     var f = new Funcionario();
-                    uController.findEspecificFuncionario(user, f);
-                    new GHome(f).setVisible(true);
+                    var t = new Turno();
+                    uController.findEspecificFuncionario(user, f, t);
+                    if (uController.findEspecificFuncionario(user, f, t) != null) {
+                        new GHome(f).setVisible(true);
+                    }else{ 
+                        JOptionPane.showMessageDialog(null, "Ainda Não Foi Escalado"); 
+                        new Login().setVisible(true);
+                    }
                 }
                 default ->
                     JOptionPane.showMessageDialog(null, "Senha Ou Usuario Errado");
@@ -443,8 +451,14 @@ public class Login extends javax.swing.JFrame {
                     GuardarDataAcesso(user, txtUsuario.getText(), txtSenha.getText());
                     dispose();
                     var f = new Funcionario();
-                    uController.findEspecificFuncionario(user, f);
-                    new GHome(f).setVisible(true);
+                    var t = new Turno();
+                    uController.findEspecificFuncionario(user, f, t);
+                    if (uController.findEspecificFuncionario(user, f, t) != null) {
+                        new GHome(f).setVisible(true);
+                    }else{ 
+                        JOptionPane.showMessageDialog(null, "Ainda Não Foi Escalado"); 
+                        new Login().setVisible(true);
+                    }
                 }
             }
             default ->
@@ -550,7 +564,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel btnFechar;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -561,6 +574,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel lblimg;
     private javax.swing.JPanel pnlCards;
     private javax.swing.JPasswordField txtConfNovaSenha;
     private javax.swing.JPasswordField txtNovaSenha;

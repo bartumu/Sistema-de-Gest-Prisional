@@ -81,7 +81,7 @@ public class Home extends javax.swing.JFrame {
 
         cardLayout = (CardLayout) (pnlCards.getLayout());
         cardLayout.show(pnlCards, "HomePanel");
-//        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
+        imgLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
 
     }
 
@@ -1277,18 +1277,19 @@ public class Home extends javax.swing.JFrame {
             .addGroup(HomePanelLayout.createSequentialGroup()
                 .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HomePanelLayout.createSequentialGroup()
-                        .addGap(307, 307, 307)
-                        .addComponent(imgLabel1))
-                    .addGroup(HomePanelLayout.createSequentialGroup()
                         .addGap(99, 99, 99)
                         .addComponent(letterLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(HomePanelLayout.createSequentialGroup()
-                        .addGap(293, 293, 293)
-                        .addComponent(letterLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(HomePanelLayout.createSequentialGroup()
                         .addGap(260, 260, 260)
-                        .addComponent(letterLabel4)))
+                        .addComponent(letterLabel4))
+                    .addGroup(HomePanelLayout.createSequentialGroup()
+                        .addGap(293, 293, 293)
+                        .addComponent(letterLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(imgLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(282, 282, 282))
         );
         HomePanelLayout.setVerticalGroup(
             HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1349,7 +1350,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-03.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-03.png")));
         letterLabel.setText("RELACTÓRIO");
         cardLayout.show(pnlCards, "RelactPanel");
         CarregarTabelaPris(tblRelactorio);
@@ -1367,7 +1368,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
 
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-06.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-06.png")));
         letterLabel.setText("PRISIONEIROS");
         cardLayout.show(pnlCards, "prisPanel");
         CarregarCombo(cController);
@@ -1385,7 +1386,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MousePressed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-02.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-02.png")));
         letterLabel.setText("GUARDAS");
         cardLayout.show(pnlCards, "GuardPanel");
         CarregarCombo(bController);

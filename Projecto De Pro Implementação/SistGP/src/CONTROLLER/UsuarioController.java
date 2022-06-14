@@ -7,6 +7,7 @@ package CONTROLLER;
 import MODEL.Funcao;
 import java.sql.PreparedStatement;
 import MODEL.Funcionario;
+import MODEL.Turno;
 import MODEL.Usuario;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -186,6 +187,32 @@ public class UsuarioController extends CRUDController {
         } catch (SQLException ex) {
             super.FecharConexao();
             ex.printStackTrace();
+            return null;
+        }
+
+    }
+    
+    public ArrayList<Funcionario> findEspecificFuncionario(Usuario u, Funcionario f, Turno t) {
+        super.AbrirConexao();
+        ArrayList<Funcionario> fLista = new ArrayList<>();
+        try ( PreparedStatement stmt = super.conex.prepareStatement("SELECT f.nome,f.numBI,t.turno FROM funcionario as f"
+                + " JOIN usuario as u ON (f.numBI = u.numBI) "
+                + " JOIN turno as t ON (t.idTurno = f.idTurno) WHERE u.nome = ?")) {
+            stmt.setString(1, u.getNome());
+
+            try ( ResultSet rs = stmt.executeQuery()) {
+                rs.next();
+                f.setNome(rs.getString("f.nome"));
+                f.setNumBI(rs.getString("f.numBI"));
+                t.setTurno(rs.getString("turno"));
+                f.setIdTurno(t);
+                fLista.add(f);
+                return fLista;
+            }
+
+        } catch (SQLException ex) {
+            super.FecharConexao();
+//            JOptionPane.showMessageDialog(null, "Ainda Não Foi Escalado");
             return null;
         }
 
