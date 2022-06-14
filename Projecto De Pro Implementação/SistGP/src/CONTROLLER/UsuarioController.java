@@ -30,7 +30,7 @@ public class UsuarioController extends CRUDController {
         super.setInserirQuery(String.format("INSERT %s (senha,acesso,numBI,nome,tipo) VALUES (?,null,?,?,?)", this.tabela));
         super.setAtualizarQuery(String.format("UPDATE %s SET senha = ?, acesso = ?, nome = ? WHERE numBI = ?", this.tabela));
         super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
-        super.setSelecionarQuery(String.format("SELECT * FROM %s where tipo = 0", this.tabela));
+        super.setSelecionarQuery(String.format("SELECT * FROM %s", this.tabela));
         super.setSeleccaoPersonalizadoQuery(String.format("SELECT acesso,numBI,tipo,idUser FROM %s WHERE senha = ? and nome = ?", this.tabela));
 
     }

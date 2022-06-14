@@ -63,7 +63,7 @@ public class AdminHome extends javax.swing.JFrame {
 
         cardLayout = (CardLayout) (pnlCards.getLayout());
         cardLayout.show(pnlCards, "HomePanel");
-        imgLabel.setIcon(new javax.swing.ImageIcon(""));
+//        imgLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
 
         btnEdBloco.setEnabled(false);
         btnExBloco.setEnabled(false);
@@ -148,7 +148,6 @@ public class AdminHome extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnCela = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        imgLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnSair1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -156,6 +155,7 @@ public class AdminHome extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         btnFuncao = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
+        imgLabel = new javax.swing.JLabel();
         pnlCards = new javax.swing.JPanel();
         pnlFuncionario = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -382,8 +382,6 @@ public class AdminHome extends javax.swing.JFrame {
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
         );
 
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\img\\Icons-Bencao-04.png")); // NOI18N
-
         jLabel6.setFont(new java.awt.Font("SimSun", 1, 24)); // NOI18N
         jLabel6.setText("S I S T G P");
 
@@ -471,6 +469,8 @@ public class AdminHome extends javax.swing.JFrame {
             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
         );
 
+        imgLabel.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -480,10 +480,6 @@ public class AdminHome extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnFunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(imgLabel)
-                        .addGap(0, 22, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -501,13 +497,17 @@ public class AdminHome extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
+                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(btnFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -943,7 +943,7 @@ public class AdminHome extends javax.swing.JFrame {
         .addGroup(pnlBlocoLayout.createSequentialGroup()
             .addGap(23, 23, 23)
             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(78, Short.MAX_VALUE))
+            .addContainerGap(87, Short.MAX_VALUE))
     );
     pnlBlocoLayout.setVerticalGroup(
         pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1111,7 +1111,7 @@ public class AdminHome extends javax.swing.JFrame {
         .addGroup(pnlCelaLayout.createSequentialGroup()
             .addGap(23, 23, 23)
             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(78, Short.MAX_VALUE))
+            .addContainerGap(87, Short.MAX_VALUE))
     );
     pnlCelaLayout.setVerticalGroup(
         pnlCelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1255,7 +1255,7 @@ public class AdminHome extends javax.swing.JFrame {
         .addGroup(pnlUsuarioLayout.createSequentialGroup()
             .addGap(23, 23, 23)
             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(78, Short.MAX_VALUE))
+            .addContainerGap(87, Short.MAX_VALUE))
     );
     pnlUsuarioLayout.setVerticalGroup(
         pnlUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1392,7 +1392,7 @@ public class AdminHome extends javax.swing.JFrame {
         .addGroup(FuncaoPanelLayout.createSequentialGroup()
             .addGap(23, 23, 23)
             .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(78, Short.MAX_VALUE))
+            .addContainerGap(87, Short.MAX_VALUE))
     );
     FuncaoPanelLayout.setVerticalGroup(
         FuncaoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1524,7 +1524,7 @@ public class AdminHome extends javax.swing.JFrame {
         .addGroup(TurnoPanelLayout.createSequentialGroup()
             .addGap(23, 23, 23)
             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(78, Short.MAX_VALUE))
+            .addContainerGap(87, Short.MAX_VALUE))
     );
     TurnoPanelLayout.setVerticalGroup(
         TurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1538,7 +1538,7 @@ public class AdminHome extends javax.swing.JFrame {
 
     HomePanel.setBackground(new java.awt.Color(204, 255, 204));
 
-    imgLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\img\\Icons-Bencao-04.png")); // NOI18N
+    imgLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png"))); // NOI18N
 
     letterLabel2.setFont(new java.awt.Font("SimSun", 1, 24)); // NOI18N
     letterLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1557,15 +1557,6 @@ public class AdminHome extends javax.swing.JFrame {
     HomePanelLayout.setHorizontalGroup(
         HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
-            .addGap(0, 62, Short.MAX_VALUE)
-            .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
-                    .addComponent(imgLabel1)
-                    .addGap(271, 271, 271))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
-                    .addComponent(letterLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(43, 43, 43))))
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
@@ -1574,6 +1565,15 @@ public class AdminHome extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
                     .addComponent(letterLabel4)
                     .addGap(212, 212, 212))))
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
+            .addGap(0, 71, Short.MAX_VALUE)
+            .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
+                    .addComponent(letterLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(43, 43, 43))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
+                    .addComponent(imgLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(264, 264, 264))))
     );
     HomePanelLayout.setVerticalGroup(
         HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1611,7 +1611,7 @@ public class AdminHome extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
 
         cardLayout.show(pnlCards, "pnlBloco");
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
         tbModelB = new DefaultTableModel() {
 
             @Override
@@ -1635,7 +1635,7 @@ public class AdminHome extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         cardLayout.show(pnlCards, "pnlFunc");
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
+//        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04")));
         tbModelFunc = new DefaultTableModel() {
 
             @Override
@@ -1663,7 +1663,7 @@ public class AdminHome extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
 
         cardLayout.show(pnlCards, "pnlUsuario");
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
         tbModelU = new DefaultTableModel() {
 
             @Override
@@ -1688,7 +1688,7 @@ public class AdminHome extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
         cardLayout.show(pnlCards, "pnlCela");
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
         tbModelC = new DefaultTableModel() {
 
             @Override
@@ -1815,7 +1815,7 @@ public class AdminHome extends javax.swing.JFrame {
     private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
         // TODO add your handling code here:
         cardLayout.show(pnlCards, "TurnoPanel");
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
         tbModelT = new DefaultTableModel() {
 
             @Override
@@ -1839,7 +1839,7 @@ public class AdminHome extends javax.swing.JFrame {
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
         cardLayout.show(pnlCards, "FuncaoPanel");
-        imgLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Melhor De Mim\\OneDrive - academiabai.co.ao\\Projecto De Pro Implementação\\SistGP\\src\\IMG\\Icons-Bencao-04.png"));
+        imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
         tbModelFunc = new DefaultTableModel() {
 
             @Override
@@ -2315,7 +2315,7 @@ public class AdminHome extends javax.swing.JFrame {
     private void btnExFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExFuncionarioKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExFuncionarioKeyPressed
-    
+
     private void btnExFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExFuncionarioActionPerformed
         // TODO add your handling code here:
         if (btnExFuncionario.isEnabled()) {
