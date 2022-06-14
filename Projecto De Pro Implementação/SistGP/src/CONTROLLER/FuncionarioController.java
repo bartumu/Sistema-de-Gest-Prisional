@@ -199,8 +199,8 @@ public class FuncionarioController extends CRUDController {
 
         tbModelF.setColumnIdentifiers(columnNames);
 
-        String sql = String.format("SELECT * FROM funcionario as f inner join funcao as fu on fu.`idFuncao` = f.`idFuncao`"
-                + "where  f.idBloco is null");
+        String sql = String.format("SELECT * FROM funcionario as f inner join funcao as fu on fu.`idFuncao` = f.`idFuncao` "
+                + "where  f.idBloco is null AND fu.funcao = 'Guarda'");
         try ( Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
             try ( ResultSet rs = stmt.executeQuery(sql)) {
