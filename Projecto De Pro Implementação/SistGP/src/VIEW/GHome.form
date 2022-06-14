@@ -71,8 +71,8 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnTurnos" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="btnFuncao" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnRelact" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="btnHome" alignment="0" max="32767" attributes="0"/>
                                   <Component id="btnSair1" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -101,9 +101,9 @@
                               <Component id="btnBloco" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnFuncao" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnHome" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnTurnos" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnRelact" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnSair1" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -208,7 +208,7 @@
                 <Property name="text" type="java.lang.String" value="S I S T G P"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JPanel" name="btnTurnos">
+            <Container class="javax.swing.JPanel" name="btnRelact">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="71" green="b3" red="3c" type="rgb"/>
@@ -218,10 +218,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel20" min="-2" pref="146" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel20" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -247,7 +244,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="btnFuncao">
+            <Container class="javax.swing.JPanel" name="btnHome">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="71" green="b3" red="3c" type="rgb"/>
@@ -257,12 +254,18 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel21" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel21" min="-2" pref="154" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel21" alignment="0" pref="27" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel21" min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -341,7 +344,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="TurnoPanel"/>
+                  <CardConstraints cardName="RelactPanel"/>
                 </Constraint>
               </Constraints>
 
@@ -370,7 +373,7 @@
                           <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="183" max="32767" attributes="0"/>
+                          <EmptySpace pref="193" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -781,18 +784,17 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="imgLabel1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
-                                      </Group>
                                       <Component id="letterLabel2" alignment="1" min="-2" pref="538" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="letterLabel3" min="-2" pref="137" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="letterLabel4" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="imgLabel1" min="-2" pref="119" max="-2" attributes="0"/>
+                                              <Component id="letterLabel3" min="-2" pref="137" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -836,7 +838,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="150" max="-2" attributes="0"/>
-                          <EmptySpace pref="125" max="32767" attributes="0"/>
+                          <EmptySpace pref="135" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

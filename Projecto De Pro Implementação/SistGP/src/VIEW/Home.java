@@ -237,7 +237,6 @@ public class Home extends javax.swing.JFrame {
         txtLocalCrime = new javax.swing.JTextField();
         jSeparator16 = new javax.swing.JSeparator();
         btnCad = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         btnAbsolver = new javax.swing.JButton();
         rdbM = new javax.swing.JRadioButton();
         rdbF = new javax.swing.JRadioButton();
@@ -675,6 +674,11 @@ public class Home extends javax.swing.JFrame {
                 "Nome", "Sexo", "Estado Civil", "Cela", "Crime", "Pena"
             }
         ));
+        tblPrisioneiro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPrisioneiroMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblPrisioneiro);
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
@@ -879,11 +883,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 255, 204));
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jButton2.setText("Editar");
-        jButton2.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
-
         btnAbsolver.setBackground(new java.awt.Color(204, 255, 204));
         btnAbsolver.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnAbsolver.setText("Absolver");
@@ -941,19 +940,25 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(rdbM)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rdbF)))
-                        .addGap(43, 43, 43)
+                        .addGap(11, 11, 11)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEsquadra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtLocalCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtEsquadra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtLocalCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAbsolver, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDataCrime)
                                     .addComponent(jSeparator15)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtNumBI, javax.swing.GroupLayout.Alignment.LEADING)
@@ -981,14 +986,6 @@ public class Home extends javax.swing.JFrame {
                                     .addComponent(txtDataJulga)
                                     .addComponent(jSeparator9))))
                         .addGap(43, 43, 43))))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAbsolver, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1077,7 +1074,6 @@ public class Home extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAbsolver, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1655,15 +1651,10 @@ public class Home extends javax.swing.JFrame {
         Pris = new Prisioneiro();
         prisController = new PrisioneiroController();
         Pris.setNumBI(tbModelPris.getValueAt(j, 0).toString());
-        Pris.setNome(prisController.Find(Pris.getNumBI()).get(0).getNome());
-        Pris.setDataEntrada(prisController.Find(Pris.getNumBI()).get(0).getDataEntrada());
-        Pris.setDataNasc(prisController.Find(Pris.getNumBI()).get(0).getDataNasc());
-        Pris.setEstadoCivil(prisController.Find(Pris.getNumBI()).get(0).getEstadoCivil());
-        Pris.setIdBloco(prisController.Find(Pris.getNumBI()).get(0).getIdBloco());
-        Pris.setSexo(prisController.Find(Pris.getNumBI()).get(0).getSexo());
-        Pris.setEndereco(prisController.Find(Pris.getNumBI()).get(0).getEndereco());
         Pris.setEstado((short) 0);
-        prisController.Actualizar(Pris);
+        prisController.AtualizarEstado(Pris);
+        CarregarTabelaPris(tblPrisioneiro);
+        btnAbsolver.setEnabled(false);
     }//GEN-LAST:event_btnAbsolverActionPerformed
 
     private void txtNomeGuardaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeGuardaActionPerformed
@@ -1762,6 +1753,12 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardaLiberarActionPerformed
 
+    private void tblPrisioneiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPrisioneiroMouseClicked
+        // TODO add your handling code here:
+        btnAbsolver.setEnabled(true);
+        
+    }//GEN-LAST:event_tblPrisioneiroMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1813,7 +1810,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel btnSair1;
     private javax.swing.JLabel imgLabel;
     private javax.swing.JLabel imgLabel1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

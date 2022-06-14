@@ -770,14 +770,21 @@
                                               <Component id="rdbF" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jSeparator11" min="-2" pref="216" max="-2" attributes="0"/>
-                                                  <Component id="txtEsquadra" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jSeparator16" min="-2" pref="153" max="-2" attributes="0"/>
-                                                  <Component id="txtLocalCrime" min="-2" pref="178" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jSeparator11" min="-2" pref="216" max="-2" attributes="0"/>
+                                                      <Component id="txtEsquadra" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jSeparator16" min="-2" pref="153" max="-2" attributes="0"/>
+                                                      <Component id="txtLocalCrime" min="-2" pref="178" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="btnCad" min="-2" pref="96" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="btnAbsolver" min="-2" pref="96" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -786,6 +793,7 @@
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                                       <Component id="txtNumBI" alignment="0" max="32767" attributes="0"/>
@@ -825,15 +833,6 @@
                                       <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
-                              <Component id="btnCad" min="-2" pref="96" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="96" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnAbsolver" min="-2" pref="96" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -945,7 +944,6 @@
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="btnCad" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                                  <Component id="jButton2" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="btnAbsolver" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -1038,6 +1036,9 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblPrisioneiroMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -1412,20 +1413,6 @@
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCadMouseClicked"/>
                       </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButton2">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="ff" red="cc" type="rgb"/>
-                        </Property>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Segoe UI Black" size="12" style="0"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Editar"/>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                            <PropertyBean type="com.formdev.flatlaf.ui.FlatRoundBorder"/>
-                        </Property>
-                      </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnAbsolver">
                       <Properties>

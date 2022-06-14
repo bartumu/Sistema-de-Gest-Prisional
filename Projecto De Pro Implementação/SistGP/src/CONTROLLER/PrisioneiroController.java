@@ -99,7 +99,7 @@ public class PrisioneiroController extends CRUDController {
                 pris.setNome(rs.getString("nome"));
                 pris.setEndereco(rs.getString("endereco"));
                 pris.setEstadoCivil(rs.getString("estadoCivil"));
-                pris.setDataEntrada(rs.getDate("dataEntreda").toString());
+                pris.setDataEntrada(rs.getDate("dataEntrada").toString());
                 pris.setSexo(rs.getString("sexo"));
                 pris.setEstado(rs.getShort("estado"));
                 pris.setDataNasc(rs.getDate("dataNasc").toString());
@@ -184,28 +184,6 @@ public class PrisioneiroController extends CRUDController {
         }
     }
 
-//    public ArrayList findEspecifico(CelaPK celaPK) {
-//        this.AbrirConexao();
-//        try (PreparedStatement stmt = this.conex.prepareStatement("SELECT idBloco FROM cela WHERE descricao = ?")) {
-//            stmt.setString(1, celaPK.getDescricao());
-//         
-//            try (ResultSet rs = stmt.executeQuery()) {
-//                rs.next();
-//                return rs.getInt("idBloco");
-//            }
-//            
-//        } catch (SQLException ex) {
-//            this.FecharConexao();
-//            ex.printStackTrace();
-//            return 0;
-//        }
-//    select p.nome,p.`dataEntrada`,c.descricao,esq.descricao,j.tribunal,ej.pena ,cl.descricao,b.descricao
-//from prisioneiro as p join crime as c on (p.`numBI` = c.`numBI`)
-//join esquadra as esq on (esq.`idEsquadra`=c.`idEsquadra`)
-//join e_julgado as ej on (ej.`numBI` = p.`numBI`)
-//join julgamento as j on (j.`idJulgamento` = ej.`idJulgamento`)
-//join cela as cl on (cl.`idBloco` = p.`idBloco`)
-//join bloco as b on (cl.`idBloco` = b.`idBloco`)
     public Object[] ListaTabela() {
         this.AbrirConexao();
         Object[] b = {};
@@ -238,7 +216,6 @@ public class PrisioneiroController extends CRUDController {
         String sql = String.format("call RelactorioPris('%s')", p.getNome());
         try ( java.sql.Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
-//            stmt.setString(1, p.getNumBI());
             try ( ResultSet rs = stmt.executeQuery(sql)) {
                 rs.next();
                 p.setNome(rs.getString(1));
@@ -256,5 +233,16 @@ public class PrisioneiroController extends CRUDController {
             ex.printStackTrace();
         }
     }
-
+    
+    public void AtualizarEstado(Prisioneiro p){
+        this.AbrirConexao();
+        String sql = String.format("UPDATE %s SET estado = ? WHERE numBI = ?", this.tabela);
+        try ( PreparedStatement stmt = this.conex.prepareStatement(sql)) {
+            stmt.setShort(1, p.getEstado());
+            stmt.setString(2, p.getNumBI());
+            stmt.execute();
+        } catch (SQLException ex) {
+            this.FecharConexao();
+        }
+    }
 }
