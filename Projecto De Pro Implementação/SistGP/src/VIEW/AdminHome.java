@@ -2206,7 +2206,7 @@ public class AdminHome extends javax.swing.JFrame {
             var fuController = new FuncaoController();
             f.setFuncao(func);
             f.setIdFuncao(fuController.FindId(f));
-            fController.Delete(f.getIdFuncao());
+            fuController.Delete(f.getIdFuncao());
             JOptionPane.showMessageDialog(null, "Deletado Com sucesso");
             Clicado = false;
 
@@ -2218,7 +2218,7 @@ public class AdminHome extends javax.swing.JFrame {
 
                 }
             };
-            fController.CarregarTabela(tbModelFunc, tblFuncao);
+            fuController.CarregarTabela(tbModelFunc, tblFuncao);
         }
         btnExFuncao.setEnabled(false);
         btnCadFuncao.setEnabled(true);
