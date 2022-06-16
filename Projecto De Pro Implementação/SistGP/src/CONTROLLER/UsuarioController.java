@@ -142,7 +142,7 @@ public class UsuarioController extends CRUDController {
 
         } catch (Exception e) {
 //            e.printStackTrace();
-              return 0;
+            return 0;
         }
         return a;
     }
@@ -191,7 +191,7 @@ public class UsuarioController extends CRUDController {
         }
 
     }
-    
+
     public ArrayList<Funcionario> findEspecificFuncionario(Usuario u, Funcionario f, Turno t) {
         super.AbrirConexao();
         ArrayList<Funcionario> fLista = new ArrayList<>();
@@ -243,35 +243,69 @@ public class UsuarioController extends CRUDController {
     }
 
     public void CarregarTabelaUser(DefaultTableModel tbModel, JTable tblUser) {
-        Object[] columnNames = {"Nº Do BI", "Nome", "Nome De Utilizador", "Senha"};
-        var fController = new FuncionarioController();
-        var UController = new UsuarioController();
+        Object[] columnNames = {"Nº Do BI", "Nome", "Nome De Utilizador", "Senha", "Ultimo Acesso"};
+        Object[] lista1 = new Object[10];
+        this.AbrirConexao();
 
         tbModel = new DefaultTableModel(columnNames, 0);
-        for (int i = 0; i < UController.findAll().size(); i++) {
 
-            Object[] lista1 = {
-                fController.findAll().get(i).getNumBI(),
-                fController.findAll().get(i).getNome(),
-                UController.findAll().get(i).getNome(),
-                UController.findAll().get(i).getSenha()
-            };
-            tbModel.addRow(lista1);
+        try ( PreparedStatement stmt = super.conex.prepareStatement("select * from usuario u join funcionario f on f.`numBI`=u.`numBI`")) {
+//            stmt.setString(1, u.getNome());
+
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    if (rs.getString(4) == null) {
+                        lista1[0] = rs.getString(6);
+                        lista1[1] = rs.getString(8);
+                        lista1[2] = rs.getString(3);
+                        lista1[3] = rs.getString(2);
+                        lista1[4] = "Nunca Acessou";
+                    } else {
+                        lista1[0] = rs.getString(6);
+                        lista1[1] = rs.getString(8);
+                        lista1[2] = rs.getString(3);
+                        lista1[3] = rs.getString(2);
+                        lista1[4] = rs.getString(4);
+                    }
+
+                    tbModel.addRow(lista1);
+                }
+                tblUser.setModel(tbModel);
+            }
+
+        } catch (SQLException ex) {
+            super.FecharConexao();
+//            JOptionPane.showMessageDialog(null, "Ainda Não Foi Escalado");
+
         }
-        tblUser.setModel(tbModel);
     }
 
     public void GuardarAcessoAdm(Usuario u) {
         this.AbrirConexao();
         String sql = String.format("UPDATE usuario SET acesso = ? WHERE idUser = ?");
         try ( PreparedStatement stmt = this.conex.prepareStatement(sql)) {
-            
+
             stmt.setString(1, LocalDateTime.now().toLocalDate().toString());
             stmt.setInt(2, this.find(u).get(0).getIdUser());
             stmt.execute();
             this.FecharConexao();
         } catch (SQLException ex) {
             this.FecharConexao();
+            ex.printStackTrace();
+        }
+    }
+
+    public void ResetUser(String numBI) {
+        super.AbrirConexao();
+        ArrayList<Funcionario> fLista = new ArrayList<>();
+        try ( PreparedStatement stmt = super.conex.prepareStatement("UPDATE usuario SET senha = ?, nome = ? WHERE numBI = ?")) {
+            stmt.setString(1, "1234");
+            stmt.setString(2, numBI);
+            stmt.setString(3, numBI);
+            stmt.execute();
+
+        } catch (SQLException ex) {
+            super.FecharConexao();
             ex.printStackTrace();
         }
     }

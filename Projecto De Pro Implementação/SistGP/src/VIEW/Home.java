@@ -1676,12 +1676,13 @@ public class Home extends javax.swing.JFrame {
 
     private void tblGuardaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGuardaMouseClicked
         // TODO add your handling code here:
-        btnEdTurno.setEnabled(true);
+        
         btnGuardaLiberar.setEnabled(false);
         if (evt.getClickCount() == 2) {
             int k = tblGuarda.getSelectedRow();
             f.setNumBI(tbModelF.getValueAt(k, 0).toString());
             txtNomeGuarda.setText(tbModelF.getValueAt(k, 1).toString());
+            btnEdTurno.setEnabled(true);
         }
     }//GEN-LAST:event_tblGuardaMouseClicked
 
@@ -1713,6 +1714,7 @@ public class Home extends javax.swing.JFrame {
             fController.CarregarTabelaG(tbModelF, tblGuarda);
             fController.CarregarTabelaG1(tbModelF1, tblGuardaEdit);
             txtNomeGuarda.setText("Nome");
+            btnEdTurno.setEnabled(false);
         }
     }//GEN-LAST:event_btnEdTurnoActionPerformed
 
@@ -1750,6 +1752,7 @@ public class Home extends javax.swing.JFrame {
 
             fController.CarregarTabelaG(tbModelF, tblGuarda);
             fController.CarregarTabelaG1(tbModelF1, tblGuardaEdit);
+            btnGuardaLiberar.setEnabled(false);
         }
     }//GEN-LAST:event_btnGuardaLiberarActionPerformed
 
