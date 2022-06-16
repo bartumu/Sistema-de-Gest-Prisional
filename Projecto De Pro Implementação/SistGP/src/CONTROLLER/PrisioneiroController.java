@@ -234,6 +234,29 @@ public class PrisioneiroController extends CRUDController {
         }
     }
     
+    public void CarregarRelactPorBloco(Prisioneiro p, Crime crime, CelaPK c, Bloco b, EJulgado ej, JulgamentoPK j, Esquadra esq) {
+        this.AbrirConexao();
+        String sql = String.format("call sistgp.RelactorioPrisPorBloco('"+p.getNome()+"', '"+b.getDescricao()+"')");
+        try ( java.sql.Statement stmt = this.conex.createStatement()) {
+            stmt.execute(sql);
+            try ( ResultSet rs = stmt.executeQuery(sql)) {
+                rs.next();
+                p.setNome(rs.getString(1));
+                p.setDataEntrada(rs.getString(2));
+                crime.setDescricao(rs.getString(3));
+                esq.setDescricao(rs.getString(4));
+                j.setTribunal(rs.getString(5));
+                ej.setPena(rs.getString(6));
+                b.setDescricao(rs.getString(7));
+                c.setDescricao(rs.getString(8));
+            }
+
+        } catch (SQLException ex) {
+            this.FecharConexao();
+            ex.printStackTrace();
+        }
+    }
+    
     public void AtualizarEstado(Prisioneiro p){
         this.AbrirConexao();
         String sql = String.format("UPDATE %s SET estado = ? WHERE numBI = ?", this.tabela);

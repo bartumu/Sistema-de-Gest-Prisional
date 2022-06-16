@@ -32,6 +32,7 @@ public class GHome extends javax.swing.JFrame {
     /**
      * Creates new form GHome
      */
+    String Bloco;
     Color defaultColor, ClickedColor, inDefaultColor, inClickedColor;
     CardLayout cardLayout;
 
@@ -49,10 +50,12 @@ public class GHome extends javax.swing.JFrame {
     CelaController cController = new CelaController();
     FuncionarioController fController = new FuncionarioController();
 
-    public GHome(Funcionario f) {
+    public GHome(Funcionario f, Bloco b) {
         initComponents();
         lblTurnoG.setText(f.getIdTurno().getTurno());
         lblNomeG.setText(f.getNome());
+        lblBlocoG.setText(b.getDescricao());
+        Bloco = b.getDescricao();
 
         imgLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
 
@@ -65,7 +68,7 @@ public class GHome extends javax.swing.JFrame {
         cardLayout.show(pnlCards, "HomePanel");
         imgLabel.setIcon(new javax.swing.ImageIcon(""));
 
-        fController.TabelaG(tbModelF, tblFuncionario1, lblTurnoG.getText());
+        fController.TabelaG(tbModelF, tblFuncionario1, lblTurnoG.getText(), lblBlocoG.getText(), lblNomeG.getText());
     }
 
     private void CarregarTabelaPris(JTable a) {
@@ -163,6 +166,7 @@ public class GHome extends javax.swing.JFrame {
         lblTurnoG = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblFuncionario1 = new javax.swing.JTable();
+        lblBlocoG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -670,6 +674,10 @@ public class GHome extends javax.swing.JFrame {
     );
     jScrollPane2.setViewportView(tblFuncionario1);
 
+    lblBlocoG.setFont(new java.awt.Font("SimSun", 1, 24)); // NOI18N
+    lblBlocoG.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    lblBlocoG.setText("Nome:");
+
     javax.swing.GroupLayout HomePanelLayout = new javax.swing.GroupLayout(HomePanel);
     HomePanel.setLayout(HomePanelLayout);
     HomePanelLayout.setHorizontalGroup(
@@ -681,13 +689,13 @@ public class GHome extends javax.swing.JFrame {
                     .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(letterLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
-                            .addComponent(letterLabel4)
-                            .addGap(169, 169, 169))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
                             .addGroup(HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(imgLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(letterLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(207, 207, 207))))
+                            .addGap(207, 207, 207))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomePanelLayout.createSequentialGroup()
+                            .addComponent(letterLabel4)
+                            .addGap(169, 169, 169))))
                 .addGroup(HomePanelLayout.createSequentialGroup()
                     .addGap(45, 45, 45)
                     .addComponent(letterLabel6)
@@ -696,12 +704,17 @@ public class GHome extends javax.swing.JFrame {
                     .addGap(161, 161, 161)
                     .addComponent(lblNomeG1)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lblTurnoG)))
+                    .addComponent(lblTurnoG)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
             .addGap(0, 40, Short.MAX_VALUE))
         .addGroup(HomePanelLayout.createSequentialGroup()
             .addContainerGap()
             .addComponent(jScrollPane2)
             .addContainerGap())
+        .addGroup(HomePanelLayout.createSequentialGroup()
+            .addGap(225, 225, 225)
+            .addComponent(lblBlocoG)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     HomePanelLayout.setVerticalGroup(
         HomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -720,9 +733,11 @@ public class GHome extends javax.swing.JFrame {
                 .addComponent(letterLabel6)
                 .addComponent(lblNomeG)
                 .addComponent(lblTurnoG))
-            .addGap(75, 75, 75)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(135, Short.MAX_VALUE))
+            .addGap(31, 31, 31)
+            .addComponent(lblBlocoG)
+            .addGap(44, 44, 44)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(52, Short.MAX_VALUE))
     );
 
     pnlCards.add(HomePanel, "HomePanel");
@@ -778,7 +793,7 @@ public class GHome extends javax.swing.JFrame {
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
         cardLayout.show(pnlCards, "HomePanel");
-        fController.TabelaG(tbModelF, tblFuncionario1, lblTurnoG.getText());
+        fController.TabelaG(tbModelF, tblFuncionario1, lblTurnoG.getText(), lblBlocoG.getText(), lblNomeG.getText());
         imgLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
         imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("")));
 
@@ -806,8 +821,9 @@ public class GHome extends javax.swing.JFrame {
             var ej = new EJulgado();
             var esq = new Esquadra();
             pris.setNome(tbModelPris.getValueAt(j, 1).toString());
+            b.setDescricao(Bloco);
             var pController = new PrisioneiroController();
-            pController.CarregarRelact(pris, Cr, c, b, ej, jPK, esq);
+            pController.CarregarRelactPorBloco(pris, Cr, c, b, ej, jPK, esq);
 
             lblNome.setText(pris.getNome());
             lblBloco.setText(b.getDescricao());
@@ -824,37 +840,37 @@ public class GHome extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GHome(new Funcionario()).setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GHome(new Funcionario()).setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel HomePanel;
@@ -895,6 +911,7 @@ public class GHome extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator32;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblBloco;
+    private javax.swing.JLabel lblBlocoG;
     private javax.swing.JLabel lblCela;
     private javax.swing.JLabel lblCrime;
     private javax.swing.JLabel lblEsquadra;

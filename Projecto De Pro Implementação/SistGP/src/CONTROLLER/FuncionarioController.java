@@ -28,7 +28,7 @@ public class FuncionarioController extends CRUDController {
         super.setInserirQuery(String.format("INSERT INTO %s (nome,endereco,sexo,estadoCivil,dataNasc,dataAdimissao,numBI,idFuncao) "
                 + "values (?, ?, ?, ?, ?, ?, ?,?)", this.tabela));
         super.setAtualizarQuery(String.format("UPDATE %s SET nome = ?, endereco = ?,"
-                + " sexo = ?, estadoCivil = ?, dataNasc = ?, dataAdimissao = ?, idFuncao = ?, idBloco = ?, idTurno = ?"
+                + " sexo = ?, estadoCivil = ?, dataNasc = ?, dataAdimissao = ?, idFuncao = ?"
                 + " WHERE numBI = ?", this.tabela));
         super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
         super.setSelecionarQuery(String.format("SELECT * FROM %s", this.tabela));
@@ -47,8 +47,7 @@ public class FuncionarioController extends CRUDController {
             stmt.setString(5, func.getDataNasc());
             stmt.setString(6, func.getDataAdimissao());
             stmt.setInt(7, func.getIdFuncao().getIdFuncao());
-            stmt.setInt(8, func.getIdBloco().getIdBloco());
-            stmt.setInt(9, func.getIdTurno().getIdTurno());
+            stmt.setString(8, func.getNumBI());
         } else {
             stmt.setString(1, func.getNome());
             stmt.setString(2, func.getEndereco());
@@ -160,23 +159,32 @@ public class FuncionarioController extends CRUDController {
     }
 
     public void CarregarTabela(DefaultTableModel tbModelF, JTable tblFuncionario) {
-        Object[] columnNames = {"Nº Do BI", "Nome", "Endereço", "Sexo", "Data de Nascimento", "Data De Admissão"};
+        this.AbrirConexao();
+        Object[] columnNames = {"Nº Do BI", "Nome", "Endereço", "Sexo", "Data de Nascimento","Estado Civil","Função", "Data De Admissão"};
         var fController = new FuncionarioController();
+        Object[] lista = new Object[10];
+        
         tbModelF.setColumnIdentifiers(columnNames);
-        for (int i = 0; i < fController.findAll().size(); i++) {
 
-            Object[] lista = {
-                fController.findAll().get(i).getNumBI(),
-                fController.findAll().get(i).getNome(),
-                fController.findAll().get(i).getEndereco(),
-                fController.findAll().get(i).getSexo(),
-                fController.findAll().get(i).getDataNasc(),
-                fController.findAll().get(i).getDataAdimissao()
-            };
-
-            tbModelF.addRow(lista);
-        }
-        tblFuncionario.setModel(tbModelF);
+        String sql = String.format("select * from funcionario f join funcao fu on f.idFuncao = fu.idFuncao");
+        try ( Statement stmt = this.conex.createStatement()) {
+            stmt.execute(sql);
+            try ( ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    lista[0] = (rs.getString("numBI"));
+                    lista[1] = (rs.getString("nome"));
+                    lista[2] = (rs.getString("endereco"));
+                    lista[3] = (rs.getString("sexo"));
+                    lista[4] = (rs.getDate("dataNasc").toString());
+                    lista[5] = (rs.getString("estadoCivil"));
+                    lista[6] = (rs.getString("funcao"));
+                    lista[7] = (rs.getDate("dataAdimissao").toString());
+                    tbModelF.addRow(lista);
+                }
+                tblFuncionario.setModel(tbModelF);
+            }
+            this.conex.close();
+        }catch(SQLException e){ e.printStackTrace();}
     }
 
     public void Escalar(Funcionario f, Bloco b, Turno t) {
@@ -247,17 +255,15 @@ public class FuncionarioController extends CRUDController {
             this.FecharConexao();
         }
     }
-    
-    
-    public void TabelaG(DefaultTableModel tbModelF, JTable tblFuncionario, String turno) {
+       
+    public void TabelaG(DefaultTableModel tbModelF, JTable tblFuncionario, String turno, String Bloco, String Nome) {
         this.AbrirConexao();
         Object[] lista = new Object[5];
         Object[] columnNames = {"Nº Do BI", "Nome", "Função", "Sexo", "Data De Admissão"};
 
         tbModelF.setColumnIdentifiers(columnNames);
 
-        String sql = String.format("SELECT * FROM funcionario as f inner join funcao as fu on fu.`idFuncao` = f.`idFuncao` "
-                + "join turno as t on t.idTurno = f.idTurno where  t.turno = %s AND fu.funcao = 'Guarda'", turno);
+        String sql = String.format("call sistgp.GuardaBLoco('"+turno+"', '"+Bloco+"', '"+Nome+"')");
         try ( Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
             try ( ResultSet rs = stmt.executeQuery(sql)) {
@@ -276,8 +282,7 @@ public class FuncionarioController extends CRUDController {
             this.FecharConexao();
         }
     }
-
-    
+ 
     public void LiberarEscala(Funcionario f){
         this.AbrirConexao();
         String sql = String.format("update funcionario set idBloco = null, idTurno = null where numBI = ?");
@@ -288,5 +293,4 @@ public class FuncionarioController extends CRUDController {
             this.FecharConexao();
         }
     }
-
 }

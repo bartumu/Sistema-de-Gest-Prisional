@@ -625,6 +625,11 @@ public class AdminHome extends javax.swing.JFrame {
         btnEdFuncionario.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnEdFuncionario.setText("Editar");
         btnEdFuncionario.setBorder(new com.formdev.flatlaf.ui.FlatRoundBorder());
+        btnEdFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEdFuncionarioActionPerformed(evt);
+            }
+        });
 
         btnExFuncionario.setBackground(new java.awt.Color(204, 255, 204));
         btnExFuncionario.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -774,6 +779,11 @@ public class AdminHome extends javax.swing.JFrame {
             }
         }
     );
+    tblFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            tblFuncionarioMouseClicked(evt);
+        }
+    });
     tblFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
         public void keyPressed(java.awt.event.KeyEvent evt) {
             tblFuncionarioKeyPressed(evt);
@@ -2227,8 +2237,7 @@ public class AdminHome extends javax.swing.JFrame {
 
     private void tblFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblFuncionarioKeyPressed
         // TODO add your handling code here:
-        btnExFuncionario.setEnabled(true);
-        btnCadFuncionario.setEnabled(false);
+
     }//GEN-LAST:event_tblFuncionarioKeyPressed
 
     private void btnExFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExFuncionarioKeyPressed
@@ -2313,6 +2322,78 @@ public class AdminHome extends javax.swing.JFrame {
 
         UController.CarregarTabelaUser(tbModelU, tblUser);
     }//GEN-LAST:event_btnResetUserActionPerformed
+
+    private void tblFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuncionarioMouseClicked
+        // TODO add your handling code here:
+        btnExFuncionario.setEnabled(true);
+        btnCadFuncionario.setEnabled(false);
+        if (evt.getClickCount() == 2) {
+            int i = tblFuncionario.getSelectedRow();
+            txtNumBI.setText(tblFuncionario.getValueAt(i, 0).toString());
+            txtNome.setText(tblFuncionario.getValueAt(i, 1).toString());
+            txtEndereco.setText(tblFuncionario.getValueAt(i, 2).toString());
+            if (tblFuncionario.getValueAt(i, 3).toString().equals("M")) {
+                rdbM.setSelected(true);
+            } else {
+                rdbF.setSelected(true);
+            }
+            txtDataNasc.setText(tblFuncionario.getValueAt(i, 4).toString());
+            txtEstadoCivil.setText(tblFuncionario.getValueAt(i, 5).toString());
+            FuncaoCombo.setSelectedItem(tblFuncionario.getValueAt(i, 6).toString());
+            txtDataAdmissao.setText(tblFuncionario.getValueAt(i, 7).toString());
+            btnEdFuncionario.setEnabled(true);
+            btnExFuncionario.setEnabled(false);
+            btnCadFuncionario.setEnabled(false);
+        }
+    }//GEN-LAST:event_tblFuncionarioMouseClicked
+
+    private void btnEdFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdFuncionarioActionPerformed
+        // TODO add your handling code here:
+        f = new Funcionario();
+        fController = new FuncionarioController();
+        var fc = new FuncaoController();
+        var fu = new Funcao();
+        int i = tblFuncionario.getSelectedRow();
+        f.setNumBI(txtNumBI.getText());
+        f.setNome(txtNome.getText());
+        f.setEndereco(txtEndereco.getText());
+        if (rdbM.isSelected()) {
+            f.setSexo("M");
+        } else {
+            f.setSexo("F");
+        }
+        f.setDataNasc(txtDataNasc.getText());
+        f.setEstadoCivil(txtEstadoCivil.getText());
+        fu.setFuncao(FuncaoCombo.getSelectedItem().toString());
+        fu.setIdFuncao(fc.FindId(fu));
+        f.setIdFuncao(fu);
+        f.setDataAdimissao(txtDataAdmissao.getText());
+
+        fController.Actualizar(f);
+
+        tbModelF = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        fController.CarregarTabela(tbModelF, tblFuncionario);
+
+        btnEdFuncionario.setEnabled(false);
+        btnCadFuncionario.setEnabled(true);
+
+        txtNumBI.setText("Nº BI");
+        txtNome.setText("Nome");
+        txtEndereco.setText("Endereço");
+        rdbM.setSelected(true);
+        rdbF.setSelected(false);
+        txtDataNasc.setText("Data De Nascimento");
+        txtEstadoCivil.setText("Estado Civil");
+        txtDataAdmissao.setText("Data De Admissão");
+
+    }//GEN-LAST:event_btnEdFuncionarioActionPerformed
 
     /**
      * @param args the command line arguments

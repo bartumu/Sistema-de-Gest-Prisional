@@ -4,6 +4,7 @@
  */
 package CONTROLLER;
 
+import MODEL.Bloco;
 import MODEL.Funcao;
 import java.sql.PreparedStatement;
 import MODEL.Funcionario;
@@ -192,12 +193,10 @@ public class UsuarioController extends CRUDController {
 
     }
 
-    public ArrayList<Funcionario> findEspecificFuncionario(Usuario u, Funcionario f, Turno t) {
+    public ArrayList<Funcionario> findEspecificFuncionario(Usuario u, Funcionario f, Turno t, Bloco b) {
         super.AbrirConexao();
         ArrayList<Funcionario> fLista = new ArrayList<>();
-        try ( PreparedStatement stmt = super.conex.prepareStatement("SELECT f.nome,f.numBI,t.turno FROM funcionario as f"
-                + " JOIN usuario as u ON (f.numBI = u.numBI) "
-                + " JOIN turno as t ON (t.idTurno = f.idTurno) WHERE u.nome = ?")) {
+        try ( PreparedStatement stmt = super.conex.prepareStatement("call sistgp.QuemLogou(?)")) {
             stmt.setString(1, u.getNome());
 
             try ( ResultSet rs = stmt.executeQuery()) {
@@ -205,6 +204,8 @@ public class UsuarioController extends CRUDController {
                 f.setNome(rs.getString("f.nome"));
                 f.setNumBI(rs.getString("f.numBI"));
                 t.setTurno(rs.getString("turno"));
+                b.setDescricao(rs.getString("b.descricao"));
+                f.setIdBloco(b);
                 f.setIdTurno(t);
                 fLista.add(f);
                 return fLista;

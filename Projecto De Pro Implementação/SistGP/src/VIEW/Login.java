@@ -376,9 +376,10 @@ public class Login extends javax.swing.JFrame {
                     dispose();
                     var f = new Funcionario();
                     var t = new Turno();
-                    uController.findEspecificFuncionario(user, f, t);
-                    if (uController.findEspecificFuncionario(user, f, t) != null) {
-                        new GHome(f).setVisible(true);
+                    var b = new Bloco();
+                    uController.findEspecificFuncionario(user, f, t,b);
+                    if (uController.findEspecificFuncionario(user, f, t,b) != null) {
+                        new GHome(f,b).setVisible(true);
                     }else{ 
                         JOptionPane.showMessageDialog(null, "Ainda Não Foi Escalado"); 
                         new Login().setVisible(true);
@@ -452,9 +453,10 @@ public class Login extends javax.swing.JFrame {
                     dispose();
                     var f = new Funcionario();
                     var t = new Turno();
-                    uController.findEspecificFuncionario(user, f, t);
-                    if (uController.findEspecificFuncionario(user, f, t) != null) {
-                        new GHome(f).setVisible(true);
+                    var b = new Bloco();
+                    uController.findEspecificFuncionario(user, f, t,b);
+                    if (uController.findEspecificFuncionario(user, f, t,b) != null) {
+                        new GHome(f,b).setVisible(true);
                     }else{ 
                         JOptionPane.showMessageDialog(null, "Ainda Não Foi Escalado"); 
                         new Login().setVisible(true);
