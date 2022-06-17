@@ -82,22 +82,26 @@ public class Home extends javax.swing.JFrame {
         cardLayout = (CardLayout) (pnlCards.getLayout());
         cardLayout.show(pnlCards, "HomePanel");
         imgLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
+        CarregarCombo(bController, BlocoCombo);
+        btnEdTurno.setEnabled(false);
+//        BlocoCombo.setSelectedIndex(0);
 
     }
 
     private void CarregarCombo(CelaController cController) {
         CelaCombo.removeAllItems();
-        for (int i = 0; i < cController.AcharCelasNormais(celaPK).size(); i++) {
+        String a = (String) BlocoCombo.getSelectedItem();
+        for (int i = 0; i < cController.AcharCelasNormais(celaPK, a).size(); i++) {
 
-            CelaCombo.addItem(cController.AcharCelasNormais(celaPK).get(i).getDescricao());
+            CelaCombo.addItem(cController.AcharCelasNormais(celaPK, a).get(i).getDescricao());
         }
     }
 
-    private void CarregarCombo(BlocoController bController) {
-        FuncBlocoCombo.removeAllItems();
+    private void CarregarCombo(BlocoController bController, JComboBox g) {
+        g.removeAllItems();
         for (int i = 0; i < bController.findAll().size(); i++) {
 
-            FuncBlocoCombo.addItem(bController.findAll().get(i).getDescricao());
+            g.addItem(bController.findAll().get(i).getDescricao());
         }
     }
 
@@ -110,43 +114,13 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
-    private void CarregarTabelaPris(JTable a) {
-        Object[] columnNames = {"Nº Do BI", "Nome", "Sexo", "Crime", "Cela", "Pena"};
-        var criController = new CrimeController();
-        var ejController = new EJulgadoController();
-        prisController = new PrisioneiroController();
-        cController = new CelaController();
-
-        tbModelPris = new DefaultTableModel(columnNames, 0) {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-
-            }
-        };
-        for (int i = 0; i < prisController.findAll().size(); i++) {
-
-            Object[] lista = {
-                prisController.findAll().get(i).getNumBI(),
-                prisController.findAll().get(i).getNome(),
-                prisController.findAll().get(i).getSexo(),
-                criController.Find(prisController.findAll().get(i).getNumBI()).get(i).getDescricao(),
-                cController.Find(prisController.findAll().get(i).getIdBloco().getCelaPK().getIdBloco()).get(i).getCelaPK().getDescricao(),
-                ejController.Find(prisController.findAll().get(i).getNumBI()).get(i).getPena()
-            };
-
-            tbModelPris.addRow(lista);
-        }
-        a.setModel(tbModelPris);
-    }
-
-    private void ValidarData(String data) {
+    private boolean DataCerta(String data) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("uuuu-MM-dd");
         try {
             formato.parse(data);
+            return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Formato data errada, tem que ser Ano-Mes-Dia");
+            return false;
         }
     }
 
@@ -221,7 +195,7 @@ public class Home extends javax.swing.JFrame {
         txtEstadoCivil = new javax.swing.JTextField();
         txtNumBI = new javax.swing.JTextField();
         jSeparator8 = new javax.swing.JSeparator();
-        CelaCombo = new javax.swing.JComboBox<>();
+        BlocoCombo = new javax.swing.JComboBox<>();
         txtCrime = new javax.swing.JTextField();
         jSeparator10 = new javax.swing.JSeparator();
         txtEsquadra = new javax.swing.JTextField();
@@ -240,6 +214,8 @@ public class Home extends javax.swing.JFrame {
         btnAbsolver = new javax.swing.JButton();
         rdbM = new javax.swing.JRadioButton();
         rdbF = new javax.swing.JRadioButton();
+        jSeparator19 = new javax.swing.JSeparator();
+        CelaCombo = new javax.swing.JComboBox<>();
         GuardPanel = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblGuarda = new javax.swing.JTable();
@@ -770,10 +746,15 @@ public class Home extends javax.swing.JFrame {
 
         jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
 
-        CelaCombo.setBackground(new java.awt.Color(204, 255, 204));
-        CelaCombo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        CelaCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CELA", "Item 2", "Item 3", "Item 4" }));
-        CelaCombo.setBorder(null);
+        BlocoCombo.setBackground(new java.awt.Color(204, 255, 204));
+        BlocoCombo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        BlocoCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CELA", "Item 2", "Item 3", "Item 4" }));
+        BlocoCombo.setBorder(null);
+        BlocoCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BlocoComboActionPerformed(evt);
+            }
+        });
 
         txtCrime.setBackground(new java.awt.Color(204, 255, 204));
         txtCrime.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -914,6 +895,13 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jSeparator19.setBackground(new java.awt.Color(255, 255, 255));
+
+        CelaCombo.setBackground(new java.awt.Color(204, 255, 204));
+        CelaCombo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        CelaCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CELA", "Item 2", "Item 3", "Item 4" }));
+        CelaCombo.setBorder(null);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -940,38 +928,45 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(rdbM)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rdbF)))
-                        .addGap(11, 11, 11)
+                        .addGap(43, 43, 43)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtEsquadra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtLocalCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnAbsolver, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                            .addGap(17, 17, 17)
+                                            .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(btnAbsolver, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtEsquadra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtCrime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDataCrime)
-                                    .addComponent(jSeparator15)))
+                                    .addComponent(jSeparator15)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtLocalCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtNumBI, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCrime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtDataEntrada, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jSeparator6)
-                                        .addComponent(CelaCombo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(BlocoCombo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jSeparator19, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CelaCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(32, 32, 32)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1009,32 +1004,31 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(CelaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BlocoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(rdbM)
                                     .addComponent(rdbF))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtNumBI, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                 .addComponent(txtEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(txtCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(12, 12, 12)
+                                .addComponent(CelaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator19, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNumBI, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtEsquadraLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1055,26 +1049,34 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(txtDataCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(txtCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(txtEsquadra, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAbsolver, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(txtLocalCrime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
                         .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(txtDataCrime, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(txtEsquadra, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(5, 5, 5)
-                            .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLocalCrime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCad, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAbsolver, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
@@ -1349,7 +1351,16 @@ public class Home extends javax.swing.JFrame {
         imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-03.png")));
         letterLabel.setText("RELACTÓRIO");
         cardLayout.show(pnlCards, "RelactPanel");
-        CarregarTabelaPris(tblRelactorio);
+        tbModelPris = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        new PrisioneiroController().CarregarTabelaPris(tbModelPris, tblRelactorio);
+
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
@@ -1367,8 +1378,17 @@ public class Home extends javax.swing.JFrame {
         imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-06.png")));
         letterLabel.setText("PRISIONEIROS");
         cardLayout.show(pnlCards, "prisPanel");
+        CarregarCombo(bController, BlocoCombo);
         CarregarCombo(cController);
-        CarregarTabelaPris(tblPrisioneiro);
+        tbModelPris = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        new PrisioneiroController().CarregarTabelaPris(tbModelPris, tblPrisioneiro);
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -1385,7 +1405,7 @@ public class Home extends javax.swing.JFrame {
         imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-02.png")));
         letterLabel.setText("GUARDAS");
         cardLayout.show(pnlCards, "GuardPanel");
-        CarregarCombo(bController);
+        CarregarCombo(bController, FuncBlocoCombo);
         CarregarCombo(tController);
         tbModelF = new DefaultTableModel() {
 
@@ -1519,72 +1539,85 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            prisController = new PrisioneiroController();
-            Pris = new Prisioneiro();
-            celaPK = new CelaPK();
-            c = new Cela();
-            cController = new CelaController();
+            if (DataCerta(txtDataCrime.getText()) || DataCerta(txtDataJulga.getText()) || DataCerta(txtDataNasc.getText()) || DataCerta(txtDataEntrada.getText())) {
 
-            Pris.setNome(txtNome.getText());
-            Pris.setEndereco(txtEndereco.getText());
-            Pris.setEstadoCivil(txtEstadoCivil.getText());
-            ValidarData(txtDataEntrada.getText());
-            Pris.setDataEntrada(txtDataEntrada.getText());
-            ValidarData(txtDataNasc.getText());
-            Pris.setDataNasc(txtDataNasc.getText());
-            Pris.setNumBI(txtNumBI.getText());
-            if (rdbF.isSelected()) {
-                Pris.setSexo("F");
+                prisController = new PrisioneiroController();
+                Pris = new Prisioneiro();
+                celaPK = new CelaPK();
+                c = new Cela();
+                cController = new CelaController();
+
+                Pris.setNome(txtNome.getText());
+                Pris.setEndereco(txtEndereco.getText());
+                Pris.setEstadoCivil(txtEstadoCivil.getText());
+                Pris.setDataEntrada(txtDataEntrada.getText());
+                Pris.setDataNasc(txtDataNasc.getText());
+                Pris.setNumBI(txtNumBI.getText());
+                if (rdbF.isSelected()) {
+                    Pris.setSexo("F");
+                } else {
+                    Pris.setSexo("M");
+                }
+                celaPK.setDescricao((String) CelaCombo.getSelectedItem());
+                String bloco = (String) BlocoCombo.getSelectedItem();
+                celaPK.setIdBloco(cController.findIdCela(celaPK, bloco));
+                c.setCelaPK(celaPK);
+                Pris.setIdBloco(c);
+                prisController.Inserir(Pris);
+
+                esq = new Esquadra();
+                esqCrontroller = new EsquadraController();
+                esq.setDescricao(txtEsquadra.getText());
+                esq.setLocal(txtEsquadraLocal.getText());
+                esqCrontroller.Inserir(esq);
+
+                julgamentoPK = new JulgamentoPK();
+                var jController = new JulgamentoController();
+                julgamentoPK.setData(txtDataJulga.getText());
+                julgamentoPK.setTribunal(txtTribunal.getText());
+                jController.Inserir(julgamentoPK);
+
+                ejulgadoPK = new EJulgadoPK();
+                ej = new EJulgado();
+                var ejController = new EJulgadoController();
+                ejulgadoPK.setIdJulgamento(jController.findIdJulgamento(julgamentoPK));
+                ejulgadoPK.setNumBI(txtNumBI.getText());
+                ej.setEJulgadoPK(ejulgadoPK);
+                ej.setPena(txtPena.getText());
+                ejController.Inserir(ej);
+
+                crime = new Crime();
+                crimePK = new CrimePK();
+                crimeLocal = new CrimeLocal();
+                var criController = new CrimeController();
+                var cLocal = new CrimeLocalController();
+                crime.setDescricao(txtCrime.getText());
+                crimePK.setNumBI(txtNumBI.getText());
+
+                crimePK.setData(txtDataCrime.getText());
+                crimeLocal.setLocal(txtLocalCrime.getText());
+                crimeLocal.setNumBI(txtNumBI.getText());
+                crime.setCrimeLocal(crimeLocal);
+                crime.setCrimePK(crimePK);
+                esq.setIdEsquadra(esqCrontroller.findIdEsquadra(esq));
+                crime.setIdEsquadra(esq);
+                criController.Inserir(crime);
+                cLocal.Inserir(crimeLocal);
+
+                tbModelPris = new DefaultTableModel() {
+
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
+
+                    }
+                };
+                new PrisioneiroController().CarregarTabelaPris(tbModelPris, tblPrisioneiro);
+
+                JOptionPane.showMessageDialog(null, "Cadastrado Com Sucesso");
             } else {
-                Pris.setSexo("M");
+                JOptionPane.showMessageDialog(null, "Uma das Datas Está Em formato Errado");
             }
-            celaPK.setDescricao((String) CelaCombo.getSelectedItem());
-            celaPK.setIdBloco(cController.findIdBloco(celaPK));
-            c.setCelaPK(celaPK);
-            Pris.setIdBloco(c);
-            prisController.Inserir(Pris);
-
-            esq = new Esquadra();
-            esqCrontroller = new EsquadraController();
-            esq.setDescricao(txtEsquadra.getText());
-            esq.setLocal(txtEsquadraLocal.getText());
-            esqCrontroller.Inserir(esq);
-
-            julgamentoPK = new JulgamentoPK();
-            var jController = new JulgamentoController();
-            ValidarData(txtDataJulga.getText());
-            julgamentoPK.setData(txtDataJulga.getText());
-            julgamentoPK.setTribunal(txtTribunal.getText());
-            jController.Inserir(julgamentoPK);
-
-            ejulgadoPK = new EJulgadoPK();
-            ej = new EJulgado();
-            var ejController = new EJulgadoController();
-            ejulgadoPK.setIdJulgamento(jController.findIdJulgamento(julgamentoPK));
-            ejulgadoPK.setNumBI(txtNumBI.getText());
-            ej.setEJulgadoPK(ejulgadoPK);
-            ej.setPena(txtPena.getText());
-            ejController.Inserir(ej);
-
-            crime = new Crime();
-            crimePK = new CrimePK();
-            crimeLocal = new CrimeLocal();
-            var criController = new CrimeController();
-            var cLocal = new CrimeLocalController();
-            crime.setDescricao(txtCrime.getText());
-            crimePK.setNumBI(txtNumBI.getText());
-            ValidarData(txtDataCrime.getText());
-            crimePK.setData(txtDataCrime.getText());
-            crimeLocal.setLocal(txtLocalCrime.getText());
-            crimeLocal.setNumBI(txtNumBI.getText());
-            crime.setCrimeLocal(crimeLocal);
-            crime.setCrimePK(crimePK);
-            esq.setIdEsquadra(esqCrontroller.findIdEsquadra(esq));
-            crime.setIdEsquadra(esq);
-            criController.Inserir(crime);
-            cLocal.Inserir(crimeLocal);
-
-            JOptionPane.showMessageDialog(null, "Cadastrado Com Sucesso");
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -1603,7 +1636,7 @@ public class Home extends javax.swing.JFrame {
             txtNome.setText("Nome completo");
             txtDataJulga.setText("Data Do Julgamento");
             txtDataCrime.setText("Data Do Crime");
-            CelaCombo.setSelectedIndex(0);
+            BlocoCombo.setSelectedIndex(0);
         }
     }//GEN-LAST:event_btnCadMouseClicked
 
@@ -1653,7 +1686,16 @@ public class Home extends javax.swing.JFrame {
         Pris.setNumBI(tbModelPris.getValueAt(j, 0).toString());
         Pris.setEstado((short) 0);
         prisController.AtualizarEstado(Pris);
-        CarregarTabelaPris(tblPrisioneiro);
+        tbModelPris = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        new PrisioneiroController().CarregarTabelaPris(tbModelPris, tblPrisioneiro);
+
         btnAbsolver.setEnabled(false);
     }//GEN-LAST:event_btnAbsolverActionPerformed
 
@@ -1676,7 +1718,7 @@ public class Home extends javax.swing.JFrame {
 
     private void tblGuardaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGuardaMouseClicked
         // TODO add your handling code here:
-        
+
         btnGuardaLiberar.setEnabled(false);
         if (evt.getClickCount() == 2) {
             int k = tblGuarda.getSelectedRow();
@@ -1731,7 +1773,7 @@ public class Home extends javax.swing.JFrame {
             f.setNumBI(tbModelF1.getValueAt(k, 0).toString());
             var fController = new FuncionarioController();
             fController.LiberarEscala(f);
-            
+
             tbModelF = new DefaultTableModel() {
 
                 @Override
@@ -1759,45 +1801,21 @@ public class Home extends javax.swing.JFrame {
     private void tblPrisioneiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPrisioneiroMouseClicked
         // TODO add your handling code here:
         btnAbsolver.setEnabled(true);
-        
+
     }//GEN-LAST:event_tblPrisioneiroMouseClicked
+
+    private void BlocoComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlocoComboActionPerformed
+        // TODO add your handling code here:
+        CarregarCombo(cController);
+    }//GEN-LAST:event_BlocoComboActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Home(new Funcionario()).setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> BlocoCombo;
     private javax.swing.JComboBox<String> CelaCombo;
     private javax.swing.JComboBox<String> FuncBlocoCombo;
     private javax.swing.JPanel GuardPanel;
@@ -1843,6 +1861,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator17;
     private javax.swing.JSeparator jSeparator18;
+    private javax.swing.JSeparator jSeparator19;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JSeparator jSeparator21;

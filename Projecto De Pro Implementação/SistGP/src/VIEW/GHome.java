@@ -169,6 +169,7 @@ public class GHome extends javax.swing.JFrame {
         lblBlocoG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(60, 179, 113));
 
@@ -704,8 +705,7 @@ public class GHome extends javax.swing.JFrame {
                     .addGap(161, 161, 161)
                     .addComponent(lblNomeG1)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lblTurnoG)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(lblTurnoG)))
             .addGap(0, 40, Short.MAX_VALUE))
         .addGroup(HomePanelLayout.createSequentialGroup()
             .addContainerGap()
@@ -756,6 +756,7 @@ public class GHome extends javax.swing.JFrame {
     );
 
     pack();
+    setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -777,7 +778,18 @@ public class GHome extends javax.swing.JFrame {
         // TODO add your handling code here:
         cardLayout.show(pnlCards, "RelactPanel");
         imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-06.png")));
-        CarregarTabelaPris(tblRelactorio);
+        
+        tbModelPris = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
+        new PrisioneiroController().CarregarRelactPorBloco(tbModelPris, tblRelactorio, Bloco);
+        
+        
     }//GEN-LAST:event_jLabel20MouseClicked
 
     private void jLabel20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MousePressed
@@ -793,9 +805,18 @@ public class GHome extends javax.swing.JFrame {
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
         cardLayout.show(pnlCards, "HomePanel");
+        tbModelF = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+
+            }
+        };
         fController.TabelaG(tbModelF, tblFuncionario1, lblTurnoG.getText(), lblBlocoG.getText(), lblNomeG.getText());
         imgLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Icons-Bencao-04.png")));
         imgLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("")));
+        
 
     }//GEN-LAST:event_jLabel21MouseClicked
 
@@ -811,6 +832,8 @@ public class GHome extends javax.swing.JFrame {
 
     private void tblRelactorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRelactorioMouseClicked
         // TODO add your handling code here:
+                // TODO add your handling code here:
+                // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             int j = tblRelactorio.getSelectedRow();
             var pris = new Prisioneiro();
@@ -821,9 +844,8 @@ public class GHome extends javax.swing.JFrame {
             var ej = new EJulgado();
             var esq = new Esquadra();
             pris.setNome(tbModelPris.getValueAt(j, 1).toString());
-            b.setDescricao(Bloco);
             var pController = new PrisioneiroController();
-            pController.CarregarRelactPorBloco(pris, Cr, c, b, ej, jPK, esq);
+            pController.CarregarRelact(pris, Cr, c, b, ej, jPK, esq);
 
             lblNome.setText(pris.getNome());
             lblBloco.setText(b.getDescricao());
@@ -835,6 +857,8 @@ public class GHome extends javax.swing.JFrame {
             lbldataEntrada.setText(pris.getDataEntrada());
 
         }
+
+
     }//GEN-LAST:event_tblRelactorioMouseClicked
 
     /**

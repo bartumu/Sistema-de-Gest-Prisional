@@ -19,6 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,10 +30,10 @@ public class PrisioneiroController extends CRUDController {
 
     public PrisioneiroController() {
         super("prisioneiro", "numBI");
-        super.setInserirQuery(String.format("INSERT INTO %s (numBI,nome,endereco,estadoCivil,sexo,dataEntrada,dataNasc,idBloco) "
+        super.setInserirQuery(String.format("INSERT INTO %s (numBI,nome,endereco,estadoCivil,sexo,dataEntrada,dataNasc,idCela) "
                 + "values (?, ?, ?, ?, ?, ?, ?, ?)", this.tabela));
         super.setAtualizarQuery(String.format("UPDATE %s SET nome = ?, endereco = ?, estadoCivil = ?, sexo = ?, dataEntrada = ?, dataNasc = ?,"
-                + " idBloco = ? WHERE numBI = ?", this.tabela));
+                + " idCela = ? WHERE numBI = ?", this.tabela));
         super.setDeletarQuery(String.format("DELETE FROM %s WHERE %s = ?", this.tabela, this.idTabela));
         super.setSelecionarQuery(String.format("SELECT * FROM %s where estado = 1", this.tabela));
         super.setSeleccaoPersonalizadoQuery(String.format("SELECT numBI FROM %s WHERE nome = ? and dataNasc = ?", this.tabela));
@@ -82,7 +84,7 @@ public class PrisioneiroController extends CRUDController {
                     pris.setSexo(rs.getString("sexo"));
                     pris.setDataNasc(rs.getDate("dataNasc").toString());
                     pris.setEstado(rs.getShort("estado"));
-                    celaPK.setIdBloco(rs.getInt("idBloco"));
+                    celaPK.setIdBloco(rs.getInt("idCela"));
                     c.setCelaPK(celaPK);
                     pris.setIdBloco(c);
 
@@ -103,7 +105,7 @@ public class PrisioneiroController extends CRUDController {
                 pris.setSexo(rs.getString("sexo"));
                 pris.setEstado(rs.getShort("estado"));
                 pris.setDataNasc(rs.getDate("dataNasc").toString());
-                celaPK.setIdBloco(rs.getInt("idBloco"));
+                celaPK.setIdBloco(rs.getInt("idCela"));
                 c.setCelaPK(celaPK);
                 pris.setIdBloco(c);
 
@@ -166,8 +168,8 @@ public class PrisioneiroController extends CRUDController {
     public int QtdEmCelaNormal(Cela c) {
         super.AbrirConexao();
         int qtd = 0;
-        try ( PreparedStatement stmt = super.conex.prepareStatement("SELECT count(c.idBloco) as qtdEmCela FROM "
-                + "sistgp.cela as c join prisioneiro as p on (c.idBloco = p.idBloco) where c.descricao = ?")) {
+        try ( PreparedStatement stmt = super.conex.prepareStatement("SELECT count(c.idCela) as qtdEmCela FROM "
+                + "sistgp.cela as c join prisioneiro as p on (c.idCela = p.idCela) where c.descricao = ?")) {
             stmt.setString(1, c.getCelaPK().getDescricao());
 
             try ( ResultSet rs = stmt.executeQuery()) {
@@ -192,7 +194,7 @@ public class PrisioneiroController extends CRUDController {
                 + "join esquadra as esq on (esq.`idEsquadra`=c.`idEsquadra`)"
                 + "join e_julgado as ej on (ej.`numBI` = p.`numBI`)"
                 + "join julgamento as j on (j.`idJulgamento` = ej.`idJulgamento`)"
-                + "join cela as cl on (cl.`idBloco` = p.`idBloco`)"
+                + "join cela as cl on (cl.`idCela` = p.`idCela`)"
                 + "join bloco as b on (cl.`idBloco` = b.`idBloco`)");
         try ( java.sql.Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
@@ -233,10 +235,68 @@ public class PrisioneiroController extends CRUDController {
             ex.printStackTrace();
         }
     }
+
+    public void CarregarTabelaPris(DefaultTableModel tbModelF, JTable tblFuncionario) {
+        this.AbrirConexao();
+        Object[] lista = new Object[10];
+        Object[] columnNames = {"Nº Do BI", "Nome", "Sexo", "Estado Civil", "Cela", "Crime", "Pena"};
+
+        tbModelF.setColumnIdentifiers(columnNames);
+        String sql = String.format("select p.numBI, p.nome, p.sexo, p.estadoCivil, c.descricaoCela, cr.descricao, pena from prisioneiro p join crime cr on p.numBI = cr.numBI join cela c on c.idCela = p.idCela join e_julgado ej on ej.numBI = p.numBI");
+        try ( java.sql.Statement stmt = this.conex.createStatement()) {
+            stmt.execute(sql);
+            try ( ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    lista[0] = (rs.getString("numBI"));
+                    lista[1] = (rs.getString("nome"));
+                    lista[2] = (rs.getString("sexo"));
+                    lista[3] = (rs.getString("estadoCivil"));
+                    lista[4] = (rs.getString("descricaoCela"));
+                    lista[5] = (rs.getString("descricao"));
+                    lista[6] = (rs.getString("pena"));
+                    tbModelF.addRow(lista);
+                }
+                tblFuncionario.setModel(tbModelF);
+            }
+
+        } catch (SQLException ex) {
+            this.FecharConexao();
+            ex.printStackTrace();
+        }
+    }
     
+    public void CarregarRelactPorBloco(DefaultTableModel tbModelF, JTable tblFuncionario, String Bloco) {
+        this.AbrirConexao();
+        Object[] lista = new Object[10];
+        Object[] columnNames = {"Nº Do BI", "Nome", "Sexo", "Estado Civil", "Cela", "Crime", "Pena"};
+
+        tbModelF.setColumnIdentifiers(columnNames);
+        String sql = String.format("call sistgp.RelactorioPrisPorBloco('" + Bloco + "')");
+        try ( java.sql.Statement stmt = this.conex.createStatement()) {
+            stmt.execute(sql);
+            try ( ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    lista[0] = (rs.getString("numBI"));
+                    lista[1] = (rs.getString("nome"));
+                    lista[2] = (rs.getString("sexo"));
+                    lista[3] = (rs.getString("estadoCivil"));
+                    lista[4] = (rs.getString("descricaoCela"));
+                    lista[5] = (rs.getString("descricao"));
+                    lista[6] = (rs.getString("pena"));
+                    tbModelF.addRow(lista);
+                }
+                tblFuncionario.setModel(tbModelF);
+            }
+
+        } catch (SQLException ex) {
+            this.FecharConexao();
+            ex.printStackTrace();
+        }
+    }
+
     public void CarregarRelactPorBloco(Prisioneiro p, Crime crime, CelaPK c, Bloco b, EJulgado ej, JulgamentoPK j, Esquadra esq) {
         this.AbrirConexao();
-        String sql = String.format("call sistgp.RelactorioPrisPorBloco('"+p.getNome()+"', '"+b.getDescricao()+"')");
+        String sql = String.format("call sistgp.RelactorioPrisPorBloco('" + p.getNumBI()+ "', '" + b.getDescricao() + "')");
         try ( java.sql.Statement stmt = this.conex.createStatement()) {
             stmt.execute(sql);
             try ( ResultSet rs = stmt.executeQuery(sql)) {
@@ -256,8 +316,8 @@ public class PrisioneiroController extends CRUDController {
             ex.printStackTrace();
         }
     }
-    
-    public void AtualizarEstado(Prisioneiro p){
+
+    public void AtualizarEstado(Prisioneiro p) {
         this.AbrirConexao();
         String sql = String.format("UPDATE %s SET estado = ? WHERE numBI = ?", this.tabela);
         try ( PreparedStatement stmt = this.conex.prepareStatement(sql)) {

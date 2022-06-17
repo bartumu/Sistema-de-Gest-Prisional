@@ -153,6 +153,7 @@ public class UsuarioController extends CRUDController {
         Usuario user = (Usuario) object;
         stmt.setString(1, user.getSenha());
         stmt.setString(2, user.getNome());
+//        stmt.setInt(3, user.getIdUser());
     }
 
     @Override
@@ -303,6 +304,21 @@ public class UsuarioController extends CRUDController {
             stmt.setString(1, "1234");
             stmt.setString(2, numBI);
             stmt.setString(3, numBI);
+            stmt.execute();
+
+        } catch (SQLException ex) {
+            super.FecharConexao();
+            ex.printStackTrace();
+        }
+    }
+    
+    public void Actualizar(Usuario u) {
+        super.AbrirConexao();
+        ArrayList<Funcionario> fLista = new ArrayList<>();
+        try ( PreparedStatement stmt = super.conex.prepareStatement("UPDATE usuario SET acesso=? WHERE senha = ? and nome = ?")) {
+            stmt.setString(1, u.getAcesso());
+            stmt.setString(2, u.getSenha());
+            stmt.setString(3, u.getNome());
             stmt.execute();
 
         } catch (SQLException ex) {

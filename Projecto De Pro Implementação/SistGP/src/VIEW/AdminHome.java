@@ -1922,7 +1922,6 @@ public class AdminHome extends javax.swing.JFrame {
                 }
             };
             CarregarTabela();
-            CarregarTabela();
             JOptionPane.showMessageDialog(null, "Cela Cadastrada Com sucesso");
         } catch (Exception e) {
             e.printStackTrace();
@@ -2398,9 +2397,9 @@ public class AdminHome extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        new AdminHome().setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        new AdminHome().setVisible(true);
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BlocoCombo;

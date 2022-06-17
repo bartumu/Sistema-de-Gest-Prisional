@@ -92,14 +92,7 @@ public class BlocoController extends CRUDController {
         return super.Find(id); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
-    public static void main(String[] args) {
-        BlocoController bc = new BlocoController();
-        Bloco b = new Bloco();
-//        b.setIdBloco(7);
-        b.setDescricao("B61");
-        bc.Delete(6);
-//        System.out.println(" " + bc.Find(10).get(0).getDescricao());
-    }
+ 
 
     public int FindId(Bloco b) {
         this.AbrirConexao();

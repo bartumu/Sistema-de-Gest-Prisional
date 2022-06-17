@@ -334,7 +334,7 @@ public class Login extends javax.swing.JFrame {
         u.setAcesso(LocalDateTime.now().toLocalDate().toString());
         u.setNome(nome);
         u.setSenha(senha);
-        uController.Actualizar(u);
+        new UsuarioController().Actualizar(u);
     }
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -352,6 +352,7 @@ public class Login extends javax.swing.JFrame {
             user.setSenha(txtNovaSenha.getText());
             f.setNumBI(numBI);
             user.setNumBI(f);
+            
 
 //        Atualizar a Nova Senha
             if (Acesso == null) {

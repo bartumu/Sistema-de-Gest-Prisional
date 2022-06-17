@@ -57,7 +57,7 @@ public class Prisioneiro implements Serializable {
     private Collection<EJulgado> eJulgadoCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "prisioneiro")
     private PrisPertences prisPertences;
-    @JoinColumn(name = "idBloco", referencedColumnName = "idBloco")
+    @JoinColumn(name = "idCela", referencedColumnName = "idCela")
     @ManyToOne(optional = false)
     private Cela idBloco;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prisioneiro")
